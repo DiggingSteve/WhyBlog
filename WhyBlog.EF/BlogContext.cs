@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using WhyBlog.EF.Entity;
+using WhyBlog.EF.Entity.Interface;
 
 namespace WhyBlog.EF
 {
@@ -23,15 +27,53 @@ namespace WhyBlog.EF
                 optionsBuilder.UseMySql(conString);
         }
 
+        public override int SaveChanges()
+        {
+            ApplyConcepts();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        {
+            ApplyConcepts();
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        protected virtual void ApplyConcepts()
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        
+                        break;
+                    case EntityState.Modified:
+                        break;
+                    case EntityState.Deleted:
+                        SetSoftDeleteProperties(entry);
+                        break;
+                }
+            }
+        }
+        /// <summary>
+        /// soft delete ,change flag 'IsDeleted ' to true
+        /// </summary>
+        /// <param name="entity"></param>
+        protected void SetSoftDeleteProperties(EntityEntry entity)
+        {
+            if (entity.Entity is ISoftDeleted)
+            {
+                var entityObj = entity.Entity as ISoftDeleted;
+                entityObj.IsDeleted = true;
+                entity.State = EntityState.Modified;
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
-            
-            
-          
             base.OnModelCreating(builder);
-            
+            builder.Entity<BaseEntity>().HasQueryFilter(p => p.IsDeleted == false);
         }
 
         
