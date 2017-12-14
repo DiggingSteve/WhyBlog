@@ -1,35 +1,95 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
+body {
+    position: absolute;
+    height: 100%;
     width: 100%;
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.clearfix:after {
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+    border: none;
+ 
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
+ul li {
+    list-style: none;
 }
+input {
+    border:0;
+    outline: none;
+    font-size: 15px;
+    font-family: Consolas;
+    background: rgba(0,0,0,.4);
+    height: 30px;
+    width: 100%;
+    margin-top: 15px;
+    line-height: 30px;
+    color: #fff;
+    border-radius: 30px;
+    text-indent: 15px;
+    color: #b4b4b4;
+}
+
+.header {
+    position:fixed;
+    width:100%;
+    top:0;
+    display: flex;
+    background:#000;
+    flex-flow: nowrap;
+    justify-content: center;
+    height:50px;
+}
+
+    .header .title {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 25px;
+        font-family: Consolas;
+        width: 30%;
+        color: #fff;
+        line-height: 50px;
+    }
+
+    .header .menu {
+        color: #fff;
+        width: 40%;
+    }
+
+    .header .search-wrap {
+        line-height: 50px;
+        width: 30%;
+    }
+        .header .search-wrap input[type="text"] {
+            background: rgb(68, 68, 68);
+            width:230px;
+            margin:auto;
+        }
+
+    .header .menu ul {
+        display: flex;
+        justify-content: space-around;
+        line-height: 50px;
+    }
+    .right-con{
+        position:fixed;
+        margin-left:70%;
+        
+        width:300px;
+        height:400px;
+        background:#000;
+        top:80px;
+    }
+
+.container {
+
+height:10000px;}
