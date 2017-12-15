@@ -8,6 +8,7 @@ body {
     position: absolute;
     height: 100%;
     width: 100%;
+    background: url(../images/bg.png) no-repeat;
 }
 
 .clearfix:after {
@@ -17,14 +18,14 @@ body {
     visibility: hidden;
     clear: both;
     border: none;
- 
 }
 
 ul li {
     list-style: none;
 }
+
 input {
-    border:0;
+    border: 0;
     outline: none;
     font-size: 15px;
     font-family: Consolas;
@@ -40,14 +41,14 @@ input {
 }
 
 .header {
-    position:fixed;
-    width:100%;
-    top:0;
+    position: fixed;
+    width: 100%;
+    top: 0;
     display: flex;
-    background:#000;
+    background: #000;
     flex-flow: nowrap;
     justify-content: center;
-    height:50px;
+    height: 50px;
 }
 
     .header .title {
@@ -69,10 +70,11 @@ input {
         line-height: 50px;
         width: 30%;
     }
+
         .header .search-wrap input[type="text"] {
             background: rgb(68, 68, 68);
-            width:230px;
-            margin:auto;
+            width: 230px;
+            margin: auto;
         }
 
     .header .menu ul {
@@ -80,16 +82,31 @@ input {
         justify-content: space-around;
         line-height: 50px;
     }
-    .right-con{
-        position:fixed;
-        margin-left:70%;
-        
-        width:300px;
-        height:400px;
-        background:#000;
-        top:80px;
+
+.right-con {
+    position: fixed;
+    border-radius: 2px;
+    margin-left: 70%;
+    width: 300px;
+    height: 400px;
+    background-color: transparent;
+    top: 80px;
+    border: 1px solid #000;
+}
+
+    .right-con .sign-wrap {
+        background: rgba(0,0,0,.3);
+        text-align: center;
+        cursor: pointer;
+        color: #ccc;
     }
 
-.container {
 
-height:10000px;}
+        .right-con .sign-wrap .git {
+            font-size: 15px;
+            line-height: 45px;
+        }
+
+#userWrap div span{
+    line-height
+}

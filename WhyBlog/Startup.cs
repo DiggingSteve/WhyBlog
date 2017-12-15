@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using WhyBlog.Infrastructure;
 using WhyBlog.EF.Service;
 using WhyBlog.EF.Entity;
+using Newtonsoft.Json.Serialization;
 
 namespace WhyBlog
 {
@@ -28,7 +29,12 @@ namespace WhyBlog
         {
             services.AddDbContext<WhyBlog.EF.BlogContext>(options => options.UseMySql(AppConfig.MySqlConnection));
             services.AddDbService();
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                //驼峰式命名，返回js格式 首字母小写
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
+            }); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +49,7 @@ namespace WhyBlog
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseCookiePolicy();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -51,7 +57,9 @@ namespace WhyBlog
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                
             });
+            
         }
     }
 }

@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WhyBlog</title>
 
-    
+
     <environment include="Development">
         <!--开发环境-->
-        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"  />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/iconfont.css" asp-append-version="true" />
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
     </environment>
-    
+
     <environment exclude="Development">
         <!--线上环境-->
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/iconfont.css" asp-append-version="true" />
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
     </environment>
 </head>
@@ -25,21 +27,117 @@
         <div class="search-wrap"><input type="text" placeholder="search" /></div>
     </div>
     <div class="right-con">
-
+        <div class="sign-wrap">
+            <div id="gitSignIn" ><a class="git"><i style="margin-right:10px;" class="iconfont icon-Git"></i>Github Sign In</a></div>
+            <div id="userWrap" style="display:none">
+                <div><span>Name:</span><span id="userName">dsd</span></div>
+                <div><span>Email:</span><span id="userEmail">asda</span></div>
+            </div>
+        </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        
-     
     </div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        
+
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
-    
 
+    <script type="text/javascript">
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+        var ajaxRequest = {};
+        ajaxRequest.get = function (data, url) {
+            return $.ajax({
+                url: url,
+                method: "get",
+                dataType: "JSON"
+            });
+        }
+
+        ajaxRequest.post = function (data, url) {
+            return $.ajax({
+                url: url,
+                method: "post",
+                dataType: "JSON",
+                data: data
+            });
+        }
+
+        var config = {
+            client_id: "f7d394427a6c3d3e5689",
+            client_secret: "b3216c98eca8c5301b5f09525f7e6863c0250b8c",
+            scope: ['user'],
+            redirect_uri: 'http://localhost:2031',
+            api_url: '//localhost:2031/api',
+            isLogin: false
+        }
+
+        var GitOauth = (function () {
+            function gitOauth() {
+                this.init();
+            }
+            gitOauth.prototype.init = function () {
+                var _this = this;
+                $("#gitSignIn").click(function () {
+                    _this.signIn();
+                });
+                window.onload = function () {
+                    if (config.isLogin) return;
+                    _this.getToken();
+
+                }
+            }
+            gitOauth.prototype.signIn = function () {
+                var path = 'https://github.com/login/oauth/authorize';
+                path += '?client_id=' + config.client_id;
+                path += '&scope=' + config.scope;
+                path += '&redirect_uri=' + config.redirect_uri;
+                window.location.href = path;
+            }
+
+            gitOauth.prototype.getToken = function () {
+                
+                var code = getQueryString("code");
+                if (!!!code) return;
+                var url = config.api_url + "/GitApi/GetToken";
+                var data = {
+                    client_id: config.client_id,
+                    client_secret: config.client_secret,
+                    code: code
+
+                };
+                ajaxRequest.post(data, url).done(function (d) {
+                    $("#gitSignIn").hide();
+                    $("#userWrap").show();
+                    $("#userName").text(d.name);
+                    $("#userEmail").text(d.email);
+                    config.isLogin = true;
+                });
+            }
+
+            return gitOauth;
+
+        })()
+
+
+        var git = new GitOauth();
+
+
+
+
+
+
+
+
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
