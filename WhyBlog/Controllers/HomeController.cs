@@ -24,6 +24,14 @@ namespace WhyBlog.Controllers
         }
         public IActionResult Index()
         {
+            if (HttpContext.User.Identity.IsAuthenticated)
+
+            {
+
+                RedirectToPage("/About");
+
+            }
+
             
             return View();
         }

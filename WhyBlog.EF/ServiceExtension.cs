@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using WhyBlog.EF.Entity;
 using WhyBlog.EF.Service;
 
-namespace WhyBlog
+namespace WhyBlog.EF
 {
     public static class ServiceExtension
     {

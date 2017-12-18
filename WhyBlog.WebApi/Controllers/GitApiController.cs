@@ -1,18 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WhyBlog.Models.Dto;
+using WhyBlog.Util;
 
-
-namespace WhyBlog.Controllers
+namespace WhyBlog.WebApi.Controllers
 {
     [Route("api/[controller]/[Action]")]
     public class GitApiController : Controller
@@ -28,13 +26,15 @@ namespace WhyBlog.Controllers
             string token = await HttpUtil.HttpPostAsync("https://github.com/login/oauth/access_token", postData, Encoding.UTF8);
             string pattern = @"(?<=access_token=)\w*";
             token = Regex.Match(token, pattern).Value;
-            string userStr = await HttpUtil.HttpGetAsync("https://api.github.com/user?access_token="+token, Encoding.UTF8);
+            string userStr = await HttpUtil.HttpGetAsync("https://api.github.com/user?access_token=" + token, Encoding.UTF8);
             GitUser user = JsonConvert.DeserializeObject<GitUser>(userStr);
-            
+            var identity = new ClaimsIdentity("Forms");
+            identity.AddClaim(new Claim(ClaimTypes.Sid, user.Id.ToString()));
+            identity.AddClaim(new Claim(ClaimTypes.Name, Convert.ToString(user.Name)));
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync("login", principal, new AuthenticationProperties { IsPersistent = true ,ExpiresUtc=DateTimeOffset.UtcNow.AddHours(1)});//
             return user;
         }
-
-
 
 
     }

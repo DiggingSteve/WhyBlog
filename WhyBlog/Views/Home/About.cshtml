@@ -5,3 +5,14 @@
 <h3>@ViewData["Message"]</h3>
 
 <p>Use this area to provide additional information.</p>
+@section Scripts{ 
+<script type="text/javascript">
+
+    var url = config.api_url + "/GitApi/GetLoginUser";
+
+    ajaxRequest.post({}, url).done(function (d) {
+        console.log(d);
+    });
+    
+</script>
+    }

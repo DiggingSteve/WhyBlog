@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace WhyBlog.Models.Dto
 {
-    public class GitSignInPara
+  public  class GitSignInPara
     {
         public string Code { get; set; }
 

@@ -73,7 +73,7 @@ namespace WhyBlog.EF
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<BaseEntity>().HasQueryFilter(p => p.IsDeleted == false);
+           // builder.Entity<BaseEntity>().HasQueryFilter(p => p.IsDeleted == false);
         }
 
         
