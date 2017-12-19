@@ -10,9 +10,9 @@ This is a .NetCore project. Please use dependency injection.
 					Dto=>Data transform to DominService,
 					Vo=>View Data
 
-5.WhyBlog.DominService-> Receive dto from view layer, define the domin event flow ,then call the Bussiness to process by the flow.
+5.WhyBlog.DominService->  define the domin event flow 
 
-6.WhyBlog.Bussiness-> SubDivde the bussiness flow
 
-7.WhyBlog.WebApi-> MVC webapi that  hosting in WhyBlog
+
+6.WhyBlog.WebApi-> MVC webapi that  hosting in WhyBlog
 						

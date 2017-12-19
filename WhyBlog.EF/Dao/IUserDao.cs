@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using WhyBlog.Models.Do;
 
-namespace WhyBlog.EF.Service
+namespace WhyBlog.EF.Dao
 {
-  public  interface IUserService:IBaseService<User>
+  public  interface IUserDao:IBaseDao<User>
     {
     }
 }

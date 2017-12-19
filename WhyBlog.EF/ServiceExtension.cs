@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WhyBlog.EF.Service;
+using WhyBlog.EF.Dao;
 
 namespace WhyBlog.EF
 {
@@ -18,7 +18,7 @@ namespace WhyBlog.EF
         public static IServiceCollection AddDbService(this  IServiceCollection services)
         {
             
-          return  services.AddScoped<IUserService,UserService>();
+          return  services.AddScoped<IUserDao,UserDao>();
         }
     }
 }

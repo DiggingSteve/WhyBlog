@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace WhyBlog.EF.Service
+namespace WhyBlog.EF.Dao
 {
-  public  interface IBaseService<T>
+  public  interface IBaseDao<T>
     {
         /// <summary>
         /// 获取单个实体

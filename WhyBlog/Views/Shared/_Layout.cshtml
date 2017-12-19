@@ -28,8 +28,8 @@
     </div>
     <div class="right-con">
         <div class="sign-wrap">
-            <div id="gitSignIn" ><a class="git"><i style="margin-right:10px;" class="iconfont icon-Git"></i>Github Sign In</a></div>
-            <div id="userWrap" style="display:none">
+            <div id="gitSignIn" class="block"><a class="git"><i style="margin-right:10px;" class="iconfont icon-Git"></i>Github Sign In</a></div>
+            <div id="userWrap" class="block" style="display:none">
                 <div><span>Name:</span><span id="userName">dsd</span></div>
                 <div><span>Email:</span><span id="userEmail">asda</span></div>
             </div>
@@ -107,7 +107,7 @@
                 
                 var code = getQueryString("code");
                 if (!!!code) return;
-                var url = config.api_url + "/GitApi/GetToken";
+                var url = config.api_url + "/GitApi/SigninByGit";
                 var data = {
                     client_id: config.client_id,
                     client_secret: config.client_secret,

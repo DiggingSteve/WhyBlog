@@ -6,12 +6,12 @@ using System.Linq.Expressions;
 using System.Text;
 
 
-namespace WhyBlog.EF.Service
+namespace WhyBlog.EF.Dao
 {
-    public abstract class BaseService<T> : IBaseService<T> where T : class
+    public abstract class BaseDao<T> : IBaseDao<T> where T : class
     {
         private readonly BlogContext db;
-        public BaseService(BlogContext db)
+        public BaseDao(BlogContext db)
         {
             this.db = db;
         }

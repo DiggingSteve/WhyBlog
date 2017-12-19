@@ -91,7 +91,7 @@ input {
     height: 400px;
     background-color: transparent;
     top: 80px;
-    border: 1px solid #000;
+    
 }
 
     .right-con .sign-wrap {
@@ -99,14 +99,15 @@ input {
         text-align: center;
         cursor: pointer;
         color: #ccc;
+        height:50%;
     }
 
+    .right-con .sign-wrap .block{
+        border-bottom:1px solid #555;
+    }
 
         .right-con .sign-wrap .git {
             font-size: 15px;
             line-height: 45px;
         }
 
-#userWrap div span{
-    line-height
-}

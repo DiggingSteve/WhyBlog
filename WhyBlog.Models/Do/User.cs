@@ -15,5 +15,7 @@ namespace WhyBlog.Models.Do
         public string Account { get; set; }
 
         public string Pwd { get; set; }
+
+        public string Email { get; set; }
     }
 }
