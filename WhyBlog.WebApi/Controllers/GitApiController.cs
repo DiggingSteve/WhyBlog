@@ -7,8 +7,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WhyBlog.Infrastructure;
 using WhyBlog.Models.Dto;
-using WhyBlog.Util;
+using WhyBlog.Models.Vo;
 
 namespace WhyBlog.WebApi.Controllers
 {
@@ -31,6 +32,7 @@ namespace WhyBlog.WebApi.Controllers
             var identity = new ClaimsIdentity("Forms");
             identity.AddClaim(new Claim(ClaimTypes.Sid, user.Id.ToString()));
             identity.AddClaim(new Claim(ClaimTypes.Name, Convert.ToString(user.Name)));
+            identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync("login", principal, new AuthenticationProperties { IsPersistent = true ,ExpiresUtc=DateTimeOffset.UtcNow.AddHours(1)});//
             return user;

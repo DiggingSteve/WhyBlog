@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WhyBlog.Infrastructure\WhyBlog.Infrastructure.csproj" />
     <ProjectReference Include="..\WhyBlog.Models\WhyBlog.Models.csproj" />
-    <ProjectReference Include="..\WhyBlog.Util\WhyBlog.Util.csproj" />
   </ItemGroup>
 
 </Project>

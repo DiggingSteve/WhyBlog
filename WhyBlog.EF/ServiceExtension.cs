@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WhyBlog.EF.Entity;
 using WhyBlog.EF.Service;
 
 namespace WhyBlog.EF

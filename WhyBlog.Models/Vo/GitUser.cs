@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WhyBlog.Models.Dto
+namespace WhyBlog.Models.Vo
 {
    public class GitUser
     {

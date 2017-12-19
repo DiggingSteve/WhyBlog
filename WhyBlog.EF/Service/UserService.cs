@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WhyBlog.EF.Entity;
+using WhyBlog.Models.Do;
 
 namespace WhyBlog.EF.Service
 {

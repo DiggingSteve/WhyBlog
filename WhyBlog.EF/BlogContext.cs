@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using WhyBlog.EF.Entity;
-using WhyBlog.EF.Entity.Interface;
+using WhyBlog.Models.Do;
+using WhyBlog.Models.Do.Interface;
 
 namespace WhyBlog.EF
 {

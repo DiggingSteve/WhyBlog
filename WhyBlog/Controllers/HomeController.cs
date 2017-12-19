@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using WhyBlog.Models;
 using WhyBlog.EF;
 using WhyBlog.EF.Service;
-using WhyBlog.EF.Entity;
+
 
 namespace WhyBlog.Controllers
 {
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly BlogContext db;
         private readonly IUserService service;
@@ -22,35 +22,19 @@ namespace WhyBlog.Controllers
             
             this.service = service;
         }
+        
         public IActionResult Index()
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
+            if (!HttpContext.User.Identity.IsAuthenticated)
 
             {
 
-                RedirectToPage("/About");
-
             }
-
             
             return View();
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = service.GetEntity(2).IsDeleted;
-            service.Delete(2);
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-            db.Users.Add(new EF.Entity.User() { UserName = "admin", Account = "admin", Pwd = "123456"});
-            db.SaveChanges();
-            return View();
-        }
-
+     
  
 
         public IActionResult Error()

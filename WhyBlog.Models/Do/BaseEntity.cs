@@ -4,9 +4,9 @@ using System.Text;
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using WhyBlog.EF.Entity.Interface;
+using WhyBlog.Models.Do.Interface;
 
-namespace WhyBlog.EF.Entity
+namespace WhyBlog.Models.Do
 {
     
    public abstract  class BaseEntity:ISoftDeleted

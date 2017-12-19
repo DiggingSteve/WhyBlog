@@ -8,8 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using WhyBlog.Infrastructure;
-using WhyBlog.EF.Service;
-using WhyBlog.EF.Entity;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WhyBlog.EF;
