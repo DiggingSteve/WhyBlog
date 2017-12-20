@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using WhyBlog.Models;
 using WhyBlog.EF;
 using WhyBlog.EF.Dao;
-
+using WhyBlog.Infrastructure.Core;
 
 namespace WhyBlog.Controllers
 {

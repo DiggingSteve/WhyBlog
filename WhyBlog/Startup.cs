@@ -11,6 +11,7 @@ using WhyBlog.Infrastructure;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WhyBlog.EF;
+using WhyBlog.DominService;
 
 namespace WhyBlog
 {
@@ -29,17 +30,19 @@ namespace WhyBlog
         {
             services.AddDbContext<WhyBlog.EF.BlogContext>(options => options.UseMySql(AppConfig.MySqlConnection));
             services.AddDbService();
+            services.AddDominService();
             services.AddMvc().AddJsonOptions(options =>
             {
                 //驼峰式命名，返回js格式 首字母小写
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
-            });
-            services.AddAuthentication("login")
-      .AddCookie("login", options => {
-          options.AccessDeniedPath = "/home/contact/";
-          options.LoginPath = "/home/index/";
-      });
+            }).AddSessionStateTempDataProvider();
+            services.AddSession();
+            services.AddAuthentication("login").AddCookie("login", options =>
+            {
+             options.AccessDeniedPath = "/home/contact/";
+             options.LoginPath = "/home/index/";
+             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +60,7 @@ namespace WhyBlog
             //use the UseAuthentication method to invoke the Authentication Middleware that sets the HttpContext.User property. Call the UseAuthentication method before calling AddMvcWithDefaultRoute in an MVC app or AddMvc in a Razor Pages app:
             //使用UseAuthentication 给HttpContext.User,默认赋值
             app.UseAuthentication();
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
