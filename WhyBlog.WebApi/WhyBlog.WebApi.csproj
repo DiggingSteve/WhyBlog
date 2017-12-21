@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WhyBlog.DominService\WhyBlog.DominService.csproj" />
     <ProjectReference Include="..\WhyBlog.Infrastructure\WhyBlog.Infrastructure.csproj" />
     <ProjectReference Include="..\WhyBlog.Models\WhyBlog.Models.csproj" />
   </ItemGroup>

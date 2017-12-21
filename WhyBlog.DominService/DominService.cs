@@ -9,12 +9,14 @@ namespace WhyBlog.DominService
 {
   public  class DominService
     {
-        protected CoreSession Session { get; set; }
+        protected Context Context { get; set; }
+    
 
  
         public DominService(ClaimsPrincipal User,HttpContext context)
         {
-            Session = new CoreSession(User, context);
+            Context = new Context(User, context);
+            
         }
     }
 }

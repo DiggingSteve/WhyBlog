@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WhyBlog.EF\WhyBlog.EF.csproj" />
     <ProjectReference Include="..\WhyBlog.Infrastructure\WhyBlog.Infrastructure.csproj" />
     <ProjectReference Include="..\WhyBlog.Models\WhyBlog.Models.csproj" />
   </ItemGroup>

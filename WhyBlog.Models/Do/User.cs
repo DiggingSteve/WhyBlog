@@ -27,5 +27,10 @@ namespace WhyBlog.Models.Do
         /// git头像地址
         /// </summary>
         public string Avatar_url{get;set;}
+
+        /// <summary>
+        /// 用户来源
+        /// </summary>
+        public string UserSource { get; set; }
     }
 }

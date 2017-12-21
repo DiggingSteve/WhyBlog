@@ -10,46 +10,47 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WhyBlog.Infrastructure;
 using WhyBlog.Models.Dto;
-using WhyBlog.Models.Vo;
 using WhyBlog.Models.Enum;
 using WhyBlog.Infrastructure.Core;
+using WhyBlog.DominService;
+using WhyBlog.Models.Vo;
 
 namespace WhyBlog.WebApi.Controllers
 {
     [Route("api/[controller]/[Action]")]
     public class GitApiController : BaseController
     {
-
+        ISignInService SignInService;
+        public GitApiController(ISignInService signInService)
+        {
+            SignInService = signInService;
+        }
         /// <summary>
-        /// 
+        /// 登录返回用户视图
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost]
         
-        public async Task<GitUser> SigninByGit(GitSignInPara data)
+        public async Task<UserView> SigninByGit(GitSignInPara data)
         {
+            UserView user = new UserView();
             if (User.Identity.IsAuthenticated)
             {
                 string accountSource = CookieUtil.GetCookie(AccountSource.LoginSource, User);
                 if (accountSource == AccountSource.Git)
                 {
                     //直接返回cookie中的结果，并建立session
+                    user= SignInService.GetGitUser();
                 }
                 
             }
             else
             {
                 //没有授权 先获取授权，插入自己的库，再加cookie
+                user= await SignInService.OauthFromGit(data);
             }
-          
-            var identity = new ClaimsIdentity("Forms");
-            
-            identity.AddClaim(new Claim(ClaimTypes.Name, Convert.ToString(user.Name)));
-            identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
-            identity.AddClaim(new Claim(AccountSource.LoginSource, AccountSource.Git ));
-            var principal = new ClaimsPrincipal(identity);
-            await HttpContext.SignInAsync("login", principal, new AuthenticationProperties { IsPersistent = true ,ExpiresUtc=DateTimeOffset.UtcNow.AddHours(1)});//
+       
             return user;
         }
 

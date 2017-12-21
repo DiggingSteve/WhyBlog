@@ -8,7 +8,7 @@ namespace WhyBlog.DominService
    public static class ServiceExtension
     {
         /// <summary>
-        /// 此处注册所有db的服务
+        /// 此处注册所有DominService
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>

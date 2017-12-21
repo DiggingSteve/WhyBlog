@@ -10,19 +10,34 @@ using WhyBlog.Infrastructure;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using WhyBlog.Models.Enum;
+using WhyBlog.EF.Dao;
 
 namespace WhyBlog.DominService
 {
     public class SignInService : DominService,ISignInService
     {
-        public SignInService(ClaimsPrincipal User, HttpContext contex) : base(User,contex) { }
+        protected IUserDao UserDao { get; set; }
+        public SignInService(ClaimsPrincipal User, HttpContext contex,IUserDao userDao) : base(User,contex) { }
 
-        public GitUser GetGitUser()
+        public UserView GetGitUser()
         {
-            return new GitUser { Name = Session.UserName, Email = Session.UserName };
+            return new UserView {  };
         }
 
-        public async Task< GitUser> OauthFromGit(GitSignInPara data)
+        public async Task InserCookie(GitUser user)
+        {
+            var identity = new ClaimsIdentity("Forms");
+
+            identity.AddClaim(new Claim(ClaimTypes.Name, Convert.ToString(user.Name)));
+            identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            identity.AddClaim(new Claim(AccountSource.LoginSource, AccountSource.Git));
+            var principal = new ClaimsPrincipal(identity);
+            await Context.HttpContext.SignInAsync("login", principal, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTimeOffset.UtcNow.AddHours(1) });//
+        }
+
+        public async Task<UserView> OauthFromGit(GitSignInPara data)
         {
             Dictionary<string, string> postData = new Dictionary<string, string>();
             postData.Add("code", data.Code);
@@ -32,7 +47,22 @@ namespace WhyBlog.DominService
             string pattern = @"(?<=access_token=)\w*";
             token = Regex.Match(token, pattern).Value;
             string userStr = await HttpUtil.HttpGetAsync("https://api.github.com/user?access_token=" + token, Encoding.UTF8);
-           return JsonConvert.DeserializeObject<GitUser>(userStr);
+            GitUser gitUser = JsonConvert.DeserializeObject<GitUser>(userStr);
+            //插入Cookie
+            await InserCookie(gitUser);
+            return new UserView();
         }
+
+        /// <summary>
+        /// 创建用户
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        private bool CreateUser(GitUser user)
+        {
+
+
+        }
+
     }
 }

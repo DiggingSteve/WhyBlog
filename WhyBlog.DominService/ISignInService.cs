@@ -10,8 +10,10 @@ namespace WhyBlog.DominService
 {
     public interface ISignInService
     {
-        GitUser GetGitUser();
+        UserView GetGitUser();
 
-         Task<GitUser> OauthFromGit(GitSignInPara data);
+         Task<UserView> OauthFromGit(GitSignInPara data);
+
+         Task InserCookie(GitUser user);
     }
 }
