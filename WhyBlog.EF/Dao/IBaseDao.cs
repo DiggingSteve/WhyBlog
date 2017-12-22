@@ -20,7 +20,7 @@ namespace WhyBlog.EF.Dao
         int Update(T entity);
         int Update(IEnumerable<T> list);
 
-        int Add(T model);
+        bool Add(T model);
 
         int Delete(int id);
     }

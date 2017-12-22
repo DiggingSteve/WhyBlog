@@ -13,20 +13,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using WhyBlog.Models.Enum;
 using WhyBlog.EF.Dao;
+using WhyBlog.Models.Do;
+using AutoMapper;
 
 namespace WhyBlog.DominService
 {
-    public class SignInService : DominService,ISignInService
+    public class SignInService : DominService, ISignInService
     {
-        protected IUserDao UserDao { get; set; }
-        public SignInService(ClaimsPrincipal User, HttpContext contex,IUserDao userDao) : base(User,contex) { }
+        protected IUserDao _userDao;
+        
+        public SignInService(ClaimsPrincipal User, HttpContext contex, IUserDao userDao,IMapper mapper) : base(User, contex,mapper)
+        {
+            _userDao = userDao;
+        }
 
         public UserView GetGitUser()
         {
-            return new UserView {  };
+
+            return new UserView { };
         }
 
-        public async Task InserCookie(GitUser user)
+        private async Task InserCookie(GitUser user)
         {
             var identity = new ClaimsIdentity("Forms");
 
@@ -50,6 +57,7 @@ namespace WhyBlog.DominService
             GitUser gitUser = JsonConvert.DeserializeObject<GitUser>(userStr);
             //插入Cookie
             await InserCookie(gitUser);
+            CreateUser(gitUser);
             return new UserView();
         }
 
@@ -58,10 +66,10 @@ namespace WhyBlog.DominService
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        private bool CreateUser(GitUser user)
+        private bool CreateUser(GitUser gitUser)
         {
-
-
+            User user =  _mapper.Map<User>(gitUser);
+           return _userDao.Add(user);
         }
 
     }

@@ -26,10 +26,10 @@ namespace WhyBlog.EF.Dao
 
     
 
-        public int Add(T model)
+        public bool Add(T model)
         {
             db.Add<T>(model);
-            return db.SaveChanges();
+            return db.SaveChanges()>0?true:false;
         }
 
         public int Delete(int id)

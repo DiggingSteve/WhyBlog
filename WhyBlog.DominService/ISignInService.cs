@@ -14,6 +14,6 @@ namespace WhyBlog.DominService
 
          Task<UserView> OauthFromGit(GitSignInPara data);
 
-         Task InserCookie(GitUser user);
+        
     }
 }

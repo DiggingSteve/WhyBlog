@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -10,13 +11,13 @@ namespace WhyBlog.DominService
   public  class DominService
     {
         protected Context Context { get; set; }
-    
+        protected IMapper _mapper;
 
- 
-        public DominService(ClaimsPrincipal User,HttpContext context)
+
+        public DominService(ClaimsPrincipal User,HttpContext context,IMapper mapper)
         {
             Context = new Context(User, context);
-            
+            _mapper = mapper;
         }
     }
 }

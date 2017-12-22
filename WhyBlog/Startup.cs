@@ -12,6 +12,7 @@ using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WhyBlog.EF;
 using WhyBlog.DominService;
+using AutoMapper;
 
 namespace WhyBlog
 {
@@ -30,6 +31,7 @@ namespace WhyBlog
         {
             services.AddDbContext<WhyBlog.EF.BlogContext>(options => options.UseMySql(AppConfig.MySqlConnection));
             services.AddDbService();
+            services.AddAutoMapper();
             services.AddDominService();
             services.AddMvc().AddJsonOptions(options =>
             {
@@ -59,6 +61,7 @@ namespace WhyBlog
             }
             //use the UseAuthentication method to invoke the Authentication Middleware that sets the HttpContext.User property. Call the UseAuthentication method before calling AddMvcWithDefaultRoute in an MVC app or AddMvc in a Razor Pages app:
             //使用UseAuthentication 给HttpContext.User,默认赋值
+            
             app.UseAuthentication();
             app.UseSession();
             app.UseStaticFiles();

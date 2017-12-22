@@ -43,7 +43,6 @@ namespace WhyBlog.WebApi.Controllers
                     //直接返回cookie中的结果，并建立session
                     user= SignInService.GetGitUser();
                 }
-                
             }
             else
             {
