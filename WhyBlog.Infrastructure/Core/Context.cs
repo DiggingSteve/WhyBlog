@@ -21,8 +21,9 @@ namespace WhyBlog.Infrastructure.Core
         public HttpContext HttpContext { get; set; }
 
 
-        public Context(ClaimsPrincipal User, HttpContext httpContext)
+        public Context( HttpContext httpContext)
         {
+            ClaimsPrincipal User = httpContext.User;
             HttpContext = httpContext;
             Session = httpContext.Session;
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Sid);

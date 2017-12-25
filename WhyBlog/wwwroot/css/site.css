@@ -9,6 +9,7 @@ body {
     height: 100%;
     width: 100%;
     background: url(../images/bgxingkong.png) no-repeat;
+    background-size:cover;
 }
 
 .clearfix:after {

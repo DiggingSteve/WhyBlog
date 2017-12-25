@@ -22,7 +22,7 @@ namespace WhyBlog.DominService
     {
         protected IUserDao _userDao;
         
-        public SignInService(ClaimsPrincipal User, HttpContext contex, IUserDao userDao,IMapper mapper) : base(User, contex,mapper)
+        public SignInService( IUserDao userDao,IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(mapper, httpContextAccessor)
         {
             _userDao = userDao;
         }
@@ -57,8 +57,9 @@ namespace WhyBlog.DominService
             GitUser gitUser = JsonConvert.DeserializeObject<GitUser>(userStr);
             //插入Cookie
             await InserCookie(gitUser);
-            CreateUser(gitUser);
-            return new UserView();
+          //  CreateUser(gitUser);
+            UserView userView = _mapper.Map<UserView>(gitUser);
+            return userView;
         }
 
         /// <summary>

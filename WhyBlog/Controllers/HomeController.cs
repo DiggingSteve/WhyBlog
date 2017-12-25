@@ -8,25 +8,24 @@ using WhyBlog.Models;
 using WhyBlog.EF;
 using WhyBlog.EF.Dao;
 using WhyBlog.Infrastructure.Core;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace WhyBlog.Controllers
 {
 
     public class HomeController : BaseController
     {
-        private readonly BlogContext db;
+      
         private readonly IUserDao service;
-        public HomeController(BlogContext dbcontext, IUserDao service)
+        public HomeController( IUserDao service, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
-            this.db = dbcontext;
-            
             this.service = service;
         }
         
         public IActionResult Index()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
-
             {
 
             }

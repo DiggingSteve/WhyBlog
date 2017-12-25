@@ -14,6 +14,7 @@ using WhyBlog.Models.Enum;
 using WhyBlog.Infrastructure.Core;
 using WhyBlog.DominService;
 using WhyBlog.Models.Vo;
+using Microsoft.AspNetCore.Http;
 
 namespace WhyBlog.WebApi.Controllers
 {
@@ -21,9 +22,10 @@ namespace WhyBlog.WebApi.Controllers
     public class GitApiController : BaseController
     {
         ISignInService SignInService;
-        public GitApiController(ISignInService signInService)
+        public GitApiController(ISignInService signInService, IHttpContextAccessor httpContextAccessor) :base(httpContextAccessor)
         {
             SignInService = signInService;
+            
         }
         /// <summary>
         /// 登录返回用户视图
@@ -42,6 +44,7 @@ namespace WhyBlog.WebApi.Controllers
                 {
                     //直接返回cookie中的结果，并建立session
                     user= SignInService.GetGitUser();
+                    
                 }
             }
             else

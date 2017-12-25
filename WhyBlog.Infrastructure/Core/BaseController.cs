@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace WhyBlog.Infrastructure.Core
 {
     public class BaseController:Controller
     {
-        protected CoreSession CoreSession;
-        public BaseController()
+        protected Context Context;
+        public BaseController(IHttpContextAccessor httpContextAccessor)
         {
-            CoreSession = new CoreSession(User,HttpContext);
+
+            Context = new Context( httpContextAccessor.HttpContext);
         }
+
+        
     }
 }

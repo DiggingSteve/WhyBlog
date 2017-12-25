@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using WhyBlog.EF;
 using WhyBlog.DominService;
 using AutoMapper;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Http;
 
 namespace WhyBlog
 {
@@ -39,6 +41,7 @@ namespace WhyBlog
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
             }).AddSessionStateTempDataProvider();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
             services.AddAuthentication("login").AddCookie("login", options =>
             {

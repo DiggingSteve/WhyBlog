@@ -14,9 +14,9 @@ namespace WhyBlog.DominService
         protected IMapper _mapper;
 
 
-        public DominService(ClaimsPrincipal User,HttpContext context,IMapper mapper)
+        public DominService(IMapper mapper,IHttpContextAccessor httpContextAccessor)
         {
-            Context = new Context(User, context);
+             Context = new Context(httpContextAccessor.HttpContext);
             _mapper = mapper;
         }
     }
