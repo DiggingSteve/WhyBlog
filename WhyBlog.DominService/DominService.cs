@@ -10,13 +10,13 @@ namespace WhyBlog.DominService
 {
   public  class DominService
     {
-        protected Context Context { get; set; }
+        protected Context _context { get; set; }
         protected IMapper _mapper;
 
 
         public DominService(IMapper mapper,IHttpContextAccessor httpContextAccessor)
         {
-             Context = new Context(httpContextAccessor.HttpContext);
+            _context = new Context(httpContextAccessor.HttpContext);
             _mapper = mapper;
         }
     }

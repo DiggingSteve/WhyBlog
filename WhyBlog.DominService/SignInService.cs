@@ -15,6 +15,7 @@ using WhyBlog.Models.Enum;
 using WhyBlog.EF.Dao;
 using WhyBlog.Models.Do;
 using AutoMapper;
+using System.Linq;
 
 namespace WhyBlog.DominService
 {
@@ -29,19 +30,25 @@ namespace WhyBlog.DominService
 
         public UserView GetGitUser()
         {
+            ClaimsPrincipal User = _context.HttpContext.User;
 
-            return new UserView { };
+            var userNameClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+            var userEmailClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+            var userAvatar_urlClaim = User.Claims.FirstOrDefault(c => c.Type == "Avatar_url");
+            string name = userNameClaim?.Value;
+            string email = userEmailClaim?.Value;
+            return new UserView {NickName= };
         }
 
         private async Task InserCookie(GitUser user)
         {
             var identity = new ClaimsIdentity("Forms");
-
             identity.AddClaim(new Claim(ClaimTypes.Name, Convert.ToString(user.Name)));
             identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            identity.AddClaim(new Claim("Avatar_url", user.Avatar_url));
             identity.AddClaim(new Claim(AccountSource.LoginSource, AccountSource.Git));
             var principal = new ClaimsPrincipal(identity);
-            await Context.HttpContext.SignInAsync("login", principal, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTimeOffset.UtcNow.AddHours(1) });//
+            await _context.HttpContext.SignInAsync("login", principal, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTimeOffset.UtcNow.AddHours(1) });//
         }
 
         public async Task<UserView> OauthFromGit(GitSignInPara data)
