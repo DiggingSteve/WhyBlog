@@ -22,14 +22,15 @@ namespace WhyBlog.EF.Dao
         {
 
             return db.Find<T>(id);
+
         }
 
     
 
-        public bool Add(T model)
+        public int Add(T model)
         {
             db.Add<T>(model);
-            return db.SaveChanges()>0?true:false;
+            return db.SaveChanges();
         }
 
         public int Delete(int id)
@@ -44,16 +45,15 @@ namespace WhyBlog.EF.Dao
             return db.Set<T>().Where(expression);
         }
 
-        public virtual int Update(T entity)
+        public virtual int Update(T oldEntity ,T newEntity)
         {
-
-             db.Set<T>().Update(entity);
+            db.Entry(oldEntity).CurrentValues.SetValues(newEntity);
             return db.SaveChanges();
         }
 
-        public virtual int Update(IEnumerable<T> list)
+        public virtual int Update(IEnumerable<T> oldLst,IEnumerable<T>newLst)
         {
-            db.Set<T>().UpdateRange(list);
+            db.Entry(oldLst).CurrentValues.SetValues(newLst);
             return db.SaveChanges();
         }
     }

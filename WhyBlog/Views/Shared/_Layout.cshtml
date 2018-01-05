@@ -30,8 +30,15 @@
         <div class="sign-wrap">
             <div id="gitSignIn" class="block"><a class="git"><i style="margin-right:10px;" class="iconfont icon-Git"></i>Github Sign In</a></div>
             <div id="userWrap" class="block" style="display:none">
-                <div><span>Name:</span><span id="userName">dsd</span></div>
-                <div><span>Email:</span><span id="userEmail">asda</span></div>
+                <div class="icon"><img id="userIcon" /></div>
+                <div class="info">
+                    <div>
+                    <span class="name" id="userName"></span>
+                    </div>
+                    <div>
+                       <span id="userEmail"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -104,7 +111,7 @@
             }
 
             gitOauth.prototype.getToken = function () {
-                
+
                 var code = getQueryString("code");
                 if (!!!code) return;
                 var url = config.api_url + "/GitApi/SigninByGit";
@@ -117,13 +124,14 @@
                 ajaxRequest.post(data, url).done(function (d) {
                     $("#gitSignIn").hide();
                     $("#userWrap").show();
-                    $("#userName").text(d.name);
+                    $("#userName").text(d.nickName);
                     $("#userEmail").text(d.email);
+                    $("#userIcon").attr("src", d.avatar_url);
                     config.isLogin = true;
                 });
             }
 
-            
+
 
             return gitOauth;
 

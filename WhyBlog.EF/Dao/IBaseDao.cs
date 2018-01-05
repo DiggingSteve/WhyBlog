@@ -17,10 +17,10 @@ namespace WhyBlog.EF.Dao
  
         IEnumerable<T> Get(Expression<Func<T, bool>> expression);
 
-        int Update(T entity);
-        int Update(IEnumerable<T> list);
+        int Update(T oldEntity,T newEntity);
+        int Update(IEnumerable<T> oldLst,IEnumerable<T> newLst);
 
-        bool Add(T model);
+        int Add(T model);
 
         int Delete(int id);
     }

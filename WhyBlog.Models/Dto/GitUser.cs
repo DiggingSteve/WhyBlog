@@ -11,6 +11,7 @@ namespace WhyBlog.Models.Dto
         public string Name { get; set; }
         public string Email { get; set; }
 
+        public string Login { get; set; }
         public string Avatar_url { get; set; }
     }
 }
