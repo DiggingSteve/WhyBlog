@@ -97,7 +97,6 @@ input {
     .right-con .sign-wrap {
         background: rgba(0,0,0,.3);
         text-align: center;
-        cursor: pointer;
         color: #ccc;
         height: 50%;
     }
@@ -112,12 +111,14 @@ input {
         }
 #userWrap {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     padding: 5px;
+    align-items: center; /*垂直居中*/
 }
     #userWrap .info {
-    margin-left:5px;
+    margin:0 15px;
     }
+    .icon-tuichu:hover{cursor:pointer;}
 
         #userWrap .info .name {
         font-size:20px;

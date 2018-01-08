@@ -10,27 +10,47 @@ using WhyBlog.EF.Dao;
 using WhyBlog.Infrastructure.Core;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using WhyBlog.Models.Vo;
+using WhyBlog.DominService;
+using WhyBlog.Infrastructure;
+using WhyBlog.Models.Enum;
 
 namespace WhyBlog.Controllers
 {
 
     public class HomeController : BaseController
     {
-      
-        private readonly IUserDao service;
-        public HomeController( IUserDao service, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+
+
+        private ISignInService _signService;
+        
+        public HomeController(  IHttpContextAccessor httpContextAccessor,ISignInService siginService) : base(httpContextAccessor)
         {
-            this.service = service;
+            this._signService = siginService;
         }
         
         public IActionResult Index()
         {
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-
-            }
+            IndexView model = new IndexView(Context.HttpContext);
             
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                string accountSource = CookieUtil.GetCookie(AccountSource.LoginSource, User);
+                if (accountSource == AccountSource.Git)
+                {
+                    //直接返回cookie中的结果，并建立session
+                    model.User = _signService.GetGitUser();
+                    model.IsLogin = true;
+
+                }
+            }
+            return View(model);
+        }
+
+        public IActionResult Redirect()
+        {
+            BaseView model = new BaseView(Context.HttpContext);
+            return View(model);
         }
 
      

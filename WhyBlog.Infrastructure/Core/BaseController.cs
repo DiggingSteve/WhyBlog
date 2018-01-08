@@ -12,10 +12,10 @@ namespace WhyBlog.Infrastructure.Core
         protected Context Context;
         public BaseController(IHttpContextAccessor httpContextAccessor)
         {
-
+            
             Context = new Context( httpContextAccessor.HttpContext);
         }
-
+        
         
     }
 }

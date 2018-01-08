@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -28,18 +29,26 @@
     </div>
     <div class="right-con">
         <div class="sign-wrap">
-            <div id="gitSignIn" class="block"><a class="git"><i style="margin-right:10px;" class="iconfont icon-Git"></i>Github Sign In</a></div>
-            <div id="userWrap" class="block" style="display:none">
-                <div class="icon"><img id="userIcon" /></div>
-                <div class="info">
-                    <div>
-                    <span class="name" id="userName"></span>
+            @if (!Model.IsLogin)
+            {
+                <div style="cursor:pointer;" id="gitSignIn" class="block"><a class="git"><i style="margin-right:10px;" class="iconfont icon-Git"></i>Github Sign In</a></div>
+            }
+            @if (Model.IsLogin)
+            {
+                <div id="userWrap" class="block">
+                    <div class="icon"><img id="userIcon" src="@Model.User.Avatar_url" /></div>
+                    <div class="info">
+                        <div>
+                            <span class="name" id="userName">@Model.User.NickName</span>
+                        </div>
+                        <div>
+                            <span id="userEmail">@Model.User.Email</span>
+                        </div>
+
                     </div>
-                    <div>
-                       <span id="userEmail"></span>
-                    </div>
+                    <div><i class="iconfont icon-tuichu"></i></div>
                 </div>
-            </div>
+            }
         </div>
     </div>
     <div class="container body-content">
@@ -53,7 +62,7 @@
     </environment>
 
     <script type="text/javascript">
-
+        var rootpath='@Model.RootPath';
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
             var r = window.location.search.substr(1).match(reg);
@@ -82,9 +91,9 @@
             client_id: "f7d394427a6c3d3e5689",
             client_secret: "b3216c98eca8c5301b5f09525f7e6863c0250b8c",
             scope: ['user'],
-            redirect_uri: 'http://localhost:2031',
-            api_url: '//localhost:2031/api',
-            isLogin: false
+            redirect_uri: 'http://localhost:2031/home/redirect',
+            api_url: '@Model.RootPath/api',
+
         }
 
         var GitOauth = (function () {
@@ -96,11 +105,18 @@
                 $("#gitSignIn").click(function () {
                     _this.signIn();
                 });
-                window.onload = function () {
-                    if (config.isLogin) return;
-                    _this.getToken();
+                $(".icon-tuichu").click(function () { 
 
-                }
+                });
+
+            }
+            gitOauth.prototype.preSignIn = function () {
+                var url = config.api_url + "/GitApi/SigninByGit";
+                ajaxRequest.post({}, url).done(function (data) {
+                    if (!data.IsLogin) {
+                        _this.signIn();
+                    }
+                });
             }
             gitOauth.prototype.signIn = function () {
                 var path = 'https://github.com/login/oauth/authorize';
@@ -111,7 +127,6 @@
             }
 
             gitOauth.prototype.getToken = function () {
-
                 var code = getQueryString("code");
                 if (!!!code) return;
                 var url = config.api_url + "/GitApi/SigninByGit";
@@ -119,18 +134,22 @@
                     client_id: config.client_id,
                     client_secret: config.client_secret,
                     code: code
-
                 };
                 ajaxRequest.post(data, url).done(function (d) {
-                    $("#gitSignIn").hide();
-                    $("#userWrap").show();
-                    $("#userName").text(d.nickName);
-                    $("#userEmail").text(d.email);
-                    $("#userIcon").attr("src", d.avatar_url);
-                    config.isLogin = true;
-                });
-            }
+                    window.location.href = "/home/index";
 
+                });
+                return false;
+            }
+            gitOauth.prototype.signOut = function () {
+                var url = config.api_url + "/GitApi/SignOut";
+          
+                ajaxRequest.post(data, url).done(function (d) {
+                    window.location.href = "/home/index";
+
+                });
+
+            }
 
 
             return gitOauth;

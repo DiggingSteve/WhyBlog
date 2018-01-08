@@ -22,9 +22,11 @@ namespace WhyBlog.WebApi.Controllers
     public class GitApiController : BaseController
     {
         ISignInService SignInService;
+        
         public GitApiController(ISignInService signInService, IHttpContextAccessor httpContextAccessor) :base(httpContextAccessor)
         {
             SignInService = signInService;
+            
             
         }
         /// <summary>
@@ -54,7 +56,5 @@ namespace WhyBlog.WebApi.Controllers
        
             return user;
         }
-
-
     }
 }

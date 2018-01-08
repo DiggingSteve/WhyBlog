@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhyBlog.WebApi", "WhyBlog.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhyBlog.Models", "WhyBlog.Models\WhyBlog.Models.csproj", "{7A8DEC2B-3284-4FF1-83EE-4E6697307EAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhyBlog.DominService", "WhyBlog.DominService\WhyBlog.DominService.csproj", "{A35D4663-1B9C-4F4A-A8FC-D961838101F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhyBlog.DominService", "WhyBlog.DominService\WhyBlog.DominService.csproj", "{A35D4663-1B9C-4F4A-A8FC-D961838101F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
