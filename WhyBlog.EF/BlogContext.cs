@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace WhyBlog.EF
         {
             if (!string.IsNullOrWhiteSpace(conString))
                 optionsBuilder.UseMySql(conString);
+            
         }
 
         public override int SaveChanges()

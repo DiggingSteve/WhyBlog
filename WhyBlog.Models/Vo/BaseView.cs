@@ -9,7 +9,7 @@ namespace WhyBlog.Models.Vo
     {
         public BaseView(HttpContext context)
         {
-            this.RootPath = context.Request.Host + context.Request.PathBase;
+            this.RootPath ="http://"+ context.Request.Host + context.Request.PathBase;
         }
         public string RootPath { get; set; }
 

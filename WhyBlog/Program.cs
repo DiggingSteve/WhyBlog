@@ -19,6 +19,7 @@ namespace WhyBlog
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+              .UseUrls("http://*:8083") // change your custom port
                 .UseStartup<Startup>()
                 .Build();
     }

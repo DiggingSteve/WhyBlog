@@ -32,7 +32,7 @@ namespace WhyBlog.Controllers
         public IActionResult Index()
         {
             IndexView model = new IndexView(Context.HttpContext);
-            
+
             if (User.Identity.IsAuthenticated)
             {
                 string accountSource = CookieUtil.GetCookie(AccountSource.LoginSource, User);
@@ -44,6 +44,7 @@ namespace WhyBlog.Controllers
 
                 }
             }
+            else model.IsLogin = false;
             return View(model);
         }
 

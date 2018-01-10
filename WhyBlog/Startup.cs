@@ -45,9 +45,9 @@ namespace WhyBlog
             services.AddSession();
             services.AddAuthentication("login").AddCookie("login", options =>
             {
-             options.AccessDeniedPath = "/home/contact/";
-             options.LoginPath = "/home/index/";
-             });
+                options.AccessDeniedPath = "/home/contact/";
+                options.LoginPath = "/home/index/";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,11 +60,12 @@ namespace WhyBlog
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
             //use the UseAuthentication method to invoke the Authentication Middleware that sets the HttpContext.User property. Call the UseAuthentication method before calling AddMvcWithDefaultRoute in an MVC app or AddMvc in a Razor Pages app:
             //使用UseAuthentication 给HttpContext.User,默认赋值
-            
+
             app.UseAuthentication();
             app.UseSession();
             app.UseStaticFiles();
