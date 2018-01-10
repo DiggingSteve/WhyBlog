@@ -56,5 +56,20 @@ namespace WhyBlog.WebApi.Controllers
        
             return user;
         }
+
+
+        /// <summary>
+        /// 退出登录
+        /// </summary>
+        
+        /// <returns></returns>
+        [HttpPost]
+
+        public async Task SignOut()
+        {
+          await  SignInService.SignOut();
+
+        }
+           
     }
 }

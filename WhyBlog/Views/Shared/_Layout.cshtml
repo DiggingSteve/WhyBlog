@@ -46,7 +46,7 @@
                         </div>
 
                     </div>
-                    <div><i class="iconfont icon-tuichu"></i></div>
+                    <div><i id="icon_signOut" class="iconfont icon-tuichu"></i></div>
                 </div>
             }
         </div>
@@ -84,7 +84,7 @@
                 method: "post",
                 dataType: "JSON",
                 data: data
-            });
+            }).fail(function (e) { console.log(1); });
         }
 
         var config = {
@@ -105,19 +105,12 @@
                 $("#gitSignIn").click(function () {
                     _this.signIn();
                 });
-                $(".icon-tuichu").click(function () { 
-
+                $("#icon_signOut").click(function () {
+                    _this.signOut();
                 });
 
             }
-            gitOauth.prototype.preSignIn = function () {
-                var url = config.api_url + "/GitApi/SigninByGit";
-                ajaxRequest.post({}, url).done(function (data) {
-                    if (!data.IsLogin) {
-                        _this.signIn();
-                    }
-                });
-            }
+    
             gitOauth.prototype.signIn = function () {
                 var path = 'https://github.com/login/oauth/authorize';
                 path += '?client_id=' + config.client_id;
@@ -143,10 +136,8 @@
             }
             gitOauth.prototype.signOut = function () {
                 var url = config.api_url + "/GitApi/SignOut";
-          
-                ajaxRequest.post(data, url).done(function (d) {
-                    window.location.href = "/home/index";
-
+                ajaxRequest.post({}, url).always(function () { 
+                    window.location.href = "/";
                 });
 
             }

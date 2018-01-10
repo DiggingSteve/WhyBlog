@@ -93,5 +93,11 @@ namespace WhyBlog.DominService
             }
         }
 
+        public async Task SignOut()
+        {
+            
+            await _context.HttpContext.SignOutAsync("login");
+           
+        }
     }
 }
