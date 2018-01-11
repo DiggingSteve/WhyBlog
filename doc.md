@@ -17,3 +17,8 @@ mysql https://yq.aliyun.com/ziliao/132362
 rar  http://blog.csdn.net/duanboqiang/article/details/53160655
 
 
+进程后台运行 加 &
+
+jobs -l 查看后台进程
+
+fg % 'pid'调到前台  ctrl +c 停止
