@@ -32,7 +32,7 @@ namespace WhyBlog.Controllers
         public IActionResult Index()
         {
             IndexView model = new IndexView(Context.HttpContext);
-
+            throw new Exception();
             if (User.Identity.IsAuthenticated)
             {
                 string accountSource = CookieUtil.GetCookie(AccountSource.LoginSource, User);

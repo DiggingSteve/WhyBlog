@@ -20,18 +20,23 @@ namespace WhyBlog
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            HostingEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
+
+  
+
+        public IHostingEnvironment HostingEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         //Singleton是所有的service都用单一的实例，Scoped 是一个请求一个实例，Transient 每次使用都是新实例。
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WhyBlog.EF.BlogContext>(options => options.UseMySql(AppConfig.MySqlConnection));
+            services.AddDbContext<WhyBlog.EF.BlogContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
             services.AddDbService();
             services.AddAutoMapper();
             services.AddDominService();
@@ -53,19 +58,20 @@ namespace WhyBlog
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+                //app.UseDeveloperExceptionPage();
+                //app.UseBrowserLink();
+                app.UseExceptionHandler("/error");
             }
             else
             {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+                app.UseExceptionHandler("/error");
             }
             //use the UseAuthentication method to invoke the Authentication Middleware that sets the HttpContext.User property. Call the UseAuthentication method before calling AddMvcWithDefaultRoute in an MVC app or AddMvc in a Razor Pages app:
             //使用UseAuthentication 给HttpContext.User,默认赋值
-
+           
             app.UseAuthentication();
             app.UseSession();
             app.UseStaticFiles();

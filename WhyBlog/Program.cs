@@ -7,20 +7,45 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
 
 namespace WhyBlog
 {
     public class Program
     {
+        // NLog: setup the logger first to catch all errors
+        
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            // NLog: setup the logger first to catch all errors
+            var logger = NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
+            try
+            {
+                logger.Debug("init main");
+                BuildWebHost(args).Run();
+            }
+            catch (Exception e)
+            {
+                //NLog: catch setup errors
+                logger.Error(e, "Stopped program because of exception");
+                throw;
+            }
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-              .UseUrls("http://*:8083") // change your custom port
-                .UseStartup<Startup>()
-                .Build();
+        public static IWebHost BuildWebHost(string[] args)
+        {
+            var a = WebHost.CreateDefaultBuilder(args);
+
+            a.UseDefaultServiceProvider((context, config) =>
+            {
+                if (!context.HostingEnvironment.IsDevelopment())
+                {
+                    a.UseUrls(context.Configuration.GetSection("HostUrl").Value); // change your custom port 
+                }
+            });
+            a.UseNLog();// NLog: setup NLog for Dependency injection
+            a.UseStartup<Startup>();
+            return a.Build();
+        }
     }
 }
