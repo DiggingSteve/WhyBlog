@@ -61,9 +61,8 @@ namespace WhyBlog
             
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
-                //app.UseBrowserLink();
-                app.UseExceptionHandler("/error");
+                app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
             else
             {
