@@ -22,12 +22,13 @@
         <link href="~/css/component.css" rel="stylesheet" asp-append-version="true" />
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
     </environment>
+    @RenderSection("css", required: false)
 </head>
 <body>
     <div class="header">
         <div class="title"><span>Why-Blog</span></div>
         <div class="menu"><ul class="clearfix"><li>首页</li><li>占位</li><li>占位</li><li>占位</li></ul></div>
-        <div class="search-wrap"><input type="text" placeholder="search" /></div>
+        <div class="search-wrap"><input type="text" class="input" placeholder="search" /></div>
     </div>
     <div class="right-con">
         <div class="sign-wrap">
@@ -50,11 +51,15 @@
                     </div>
                     <div><i id="icon_signOut" class="iconfont icon-tuichu"></i></div>
                 </div>
+                <div class="button-group">
+                    <div><span id="btnBlog">Add New</span></div>
+                </div>
             }
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
+        <div class="loading"></div>
     </div>
     <script>
         //config register

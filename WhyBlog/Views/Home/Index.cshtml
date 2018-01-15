@@ -1,9 +1,49 @@
 ﻿@model IndexView
+@section css{
+    <link href="~/css/index.css" rel="stylesheet" />
+    <script src="~/js/wangEditor.js"></script>
+}
 <div class="index_wrap">
-    <div class="menu">
-        <button class="btn" >click</button>
+
+    <div class="blog-edit">
+        <div class="blog-edit-wrap">
+            <div class="head"><span id="btnCloseBlog">x</span></div>
+            <div class="content">
+                <div class="title">
+                    <input type="text" class="input" placeholder="Please input title" />
+                </div>
+                <div class="text-edit"><div id="wangEditor"></div></div>
+            </div>
+            <div class="foot">
+                <div><button class="btn">Commit</button></div>
+            </div>
+        </div>
     </div>
+
 </div>
 <script>
+    (function () {
+        init();
+        function init() {
+            initEvent();
+            initEditor();
+        }
+        function initEvent() {
+            var $blogDiv = $(".blog-edit");
+            $("#btnBlog").click(function () {
+                $blogDiv.show();
+            });
+            $("#btnCloseBlog").click(function () {
+                $blogDiv.hide();
+            });
+        }
 
+        function initEditor() {
+            var E = window.wangEditor
+            var editor = new E('#wangEditor');
+            editor.create();
+            window.editor = editor;
+
+        }
+    })();
 </script>

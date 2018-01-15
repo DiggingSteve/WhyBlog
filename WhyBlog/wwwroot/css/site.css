@@ -10,6 +10,7 @@ body {
     width: 100%;
     background: url(../images/bgxingkong.png) no-repeat;
     background-size: cover;
+    overflow:hidden;
 }
 
 .clearfix:after {
@@ -25,22 +26,11 @@ ul li {
     list-style: none;
 }
 
-input {
-    border: 0;
-    outline: none;
-    font-size: 15px;
-    font-family: Consolas;
-    background: rgba(0,0,0,.4);
-    height: 30px;
-    width: 100%;
-    margin-top: 15px;
-    line-height: 30px;
-    color: #fff;
-    border-radius: 30px;
-    text-indent: 15px;
-    color: #b4b4b4;
-}
 
+.container {
+    height:100%;
+    width:100%;
+}
 .header {
     width: 100%;
     top: 0;
@@ -133,3 +123,10 @@ input {
     #userIcon:hover {
         border-radius: 10px;
     }
+
+.button-group span{
+    font-size:18px;
+    cursor:pointer;
+}
+
+.index_wrap{width:70%;height:100%;}

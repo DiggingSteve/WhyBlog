@@ -7,21 +7,33 @@ function getQueryString(name) {
 }
 
 var ajaxRequest = {};
+var _tool = {};
+(function () {
+    _tool.loading = function () {
+        $(".loading").show();
+    }
+    _tool.removeLoading = function () {
+        $(".loading").hide();
+    }
+})()
+
 ajaxRequest.get = function (data, url) {
+    _tool.loading();
     return $.ajax({
         url: url,
         method: "get",
         dataType: "JSON"
-    });
+    }).always(function () { _tool.removeLoading(); });
 }
 
 ajaxRequest.post = function (data, url) {
+    _tool.loading();
     return $.ajax({
         url: url,
         method: "post",
         dataType: "JSON",
         data: data
-    }).fail(function (e) { console.log(1); });
+    }).always(function () { _tool.removeLoading(); });
 }
 
 var config = {
@@ -86,7 +98,6 @@ var GitOauth = (function () {
 
 
 var git = new GitOauth();
-
 
 
 
