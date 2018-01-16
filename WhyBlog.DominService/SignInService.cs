@@ -49,7 +49,7 @@ namespace WhyBlog.DominService
             identity.AddClaim(new Claim(ClaimTypes.Sid, user.Id.ToString()));
             identity.AddClaim(new Claim(AccountSource.LoginSource, AccountSource.Git));
             var principal = new ClaimsPrincipal(identity);
-            await _context.HttpContext.SignInAsync("login", principal, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTimeOffset.UtcNow.AddHours(1) });//
+            await _context.HttpContext.SignInAsync("login", principal, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTimeOffset.MaxValue });//
         }
 
         public async Task<UserView> OauthFromGit(GitSignInPara data)

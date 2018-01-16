@@ -15,6 +15,23 @@ var _tool = {};
     _tool.removeLoading = function () {
         $(".loading").hide();
     }
+    window.alert = function (str,callbcak) {
+        var $alert = $(".alert-default");
+        var $text = $(".alert-default span");
+        $text.text(str);
+        var textWidth = $alert.width() / 2;
+        var bodyWidth = $("body").width() / 2;
+        var moveWidth = bodyWidth - textWidth;
+        console.log(moveWidth);
+        $alert.css("transform", "translate3d(" + moveWidth + "px,0,0)");
+        if (!!callbcak) {
+            callbcak();
+        }
+        setTimeout(function () {
+            $alert.css("transform", "translate3d(" + -bodyWidth + "px,0,0)");
+            
+        }, 3500);
+    }
 })()
 
 ajaxRequest.get = function (data, url) {
@@ -85,7 +102,8 @@ var GitOauth = (function () {
     }
     gitOauth.prototype.signOut = function () {
         var url = config.api_url + "/GitApi/SignOut";
-        ajaxRequest.post({}, url).always(function () {
+        ajaxRequest.post({}, url).done(function (d) {
+            console.log(d);
             window.location.href = "/";
         });
 

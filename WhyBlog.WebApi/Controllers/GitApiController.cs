@@ -65,9 +65,10 @@ namespace WhyBlog.WebApi.Controllers
         /// <returns></returns>
         [HttpPost]
 
-        public async Task SignOut()
+        public async Task<bool> SignOut()
         {
           await  SignInService.SignOut();
+            return true ;
 
         }
            

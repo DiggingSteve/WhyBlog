@@ -36,7 +36,7 @@
     height: 60px;
     background-color: #1e2a37;
     display:none;
-    margin: 100px auto;
+    margin: 200px auto;
     -webkit-animation: rotateplane 1.2s infinite ease-in-out;
     animation: rotateplane 1.2s infinite ease-in-out;
 }
@@ -55,33 +55,59 @@
     text-indent: 15px;
     color: #b4b4b4;
 }
-@-webkit-keyframes rotateplane {
-    0% {
-        -webkit-transform: perspective(120px)
+.alert-default {
+    position: absolute;
+    color: #fff;
+    top: 0;
+    
+    margin: 100px auto 0;
+    max-width:250px;
+    transform: translateX(-250px);
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    word-break: break-word;
+    padding: 5px;
+    transition: all ease-in-out .5s;
+}
+
+    .alert-default span {
+        
+        font-size:16px;
+    }
+    @-webkit-keyframes rotateplane {
+        0% {
+        -webkit-transform: perspective(120px);
+        background-color:#fff;
+        
     }
 
     50% {
-        -webkit-transform: perspective(120px) rotateY(180deg)
+        -webkit-transform: perspective(120px) rotateY(180deg);
+        background-color: #000;
     }
 
     100% {
-        -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg)
+        -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+        background-color: #fff;
     }
 }
 
 @keyframes rotateplane {
     0% {
         transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        background-color: #fff;
     }
 
     50% {
         transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        background-color: #000;
     }
 
     100% {
         transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
         -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        background-color: #fff;
     }
 }

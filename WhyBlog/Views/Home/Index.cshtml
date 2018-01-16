@@ -1,7 +1,8 @@
 ﻿@model IndexView
 @section css{
     <link href="~/css/index.css" rel="stylesheet" />
-    <script src="~/js/wangEditor.js"></script>
+    <script src="~/plugin/kindEditor/kindeditor-all-min.js"></script>
+
 }
 <div class="index_wrap">
 
@@ -12,10 +13,10 @@
                 <div class="title">
                     <input type="text" class="input" placeholder="Please input title" />
                 </div>
-                <div class="text-edit"><div id="wangEditor"></div></div>
+                <div class="text-edit"><textarea id="kindEditor"></textarea></div>
             </div>
             <div class="foot">
-                <div><button class="btn">Commit</button></div>
+                <div><button class="btn" type="button" id="btnCommitBlog">Commit</button></div>
             </div>
         </div>
     </div>
@@ -39,10 +40,29 @@
         }
 
         function initEditor() {
-            var E = window.wangEditor
-            var editor = new E('#wangEditor');
-            editor.create();
-            window.editor = editor;
+            var editor;
+            KindEditor.ready(function (K) {
+
+                 editor = K.create('#kindEditor', {
+                    width: '100%',
+                    height: '380px',
+                    items: [
+                        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', '/',
+                        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|',
+                        'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                        'anchor'
+                    ]
+                });
+            });
+
+            $("#btnCommitBlog").click(function () {
+                var html = editor.html();
+                console.log(html);
+            });
 
         }
     })();
