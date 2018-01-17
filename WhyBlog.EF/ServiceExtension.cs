@@ -15,10 +15,11 @@ namespace WhyBlog.EF
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddDbService(this  IServiceCollection services)
+        public static IServiceCollection AddDbService(this IServiceCollection services)
         {
-            
-          return  services.AddScoped<IUserDao,UserDao>();
+
+            return services.AddScoped<IUserDao, UserDao>()
+                           .AddScoped<IBlogDao, BlogDao>();
         }
     }
 }

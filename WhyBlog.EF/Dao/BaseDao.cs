@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-
+using WhyBlog.Models.Do;
 
 namespace WhyBlog.EF.Dao
 {
-    public abstract class BaseDao<T> : IBaseDao<T> where T : class
+    public abstract class BaseDao<T> : IBaseDao<T> where T : BaseEntity
     {
         private readonly BlogContext db;
         public BaseDao(BlogContext db)
@@ -42,7 +42,7 @@ namespace WhyBlog.EF.Dao
 
         public virtual IEnumerable<T> Get(Expression<Func<T,bool>> expression)
         {
-            return db.Set<T>().Where(expression);
+            return db.Set<T>().Where(expression).Where(p=>p.IsDeleted!=true);
         }
 
         public virtual int Update(T oldEntity ,T newEntity)

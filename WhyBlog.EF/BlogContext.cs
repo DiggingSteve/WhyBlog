@@ -48,7 +48,6 @@ namespace WhyBlog.EF
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        
                         break;
                     case EntityState.Modified:
                         break;
@@ -81,6 +80,7 @@ namespace WhyBlog.EF
         
 
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; }
 
 
 

@@ -43,10 +43,12 @@ namespace WhyBlog.DominService
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        private async Task InserCookie(GitUser user)
+        private async Task InserCookie(GitUser user,int userId)
         {
             var identity = new ClaimsIdentity("Forms");
             identity.AddClaim(new Claim(ClaimTypes.Sid, user.Id.ToString()));
+            identity.AddClaim(new Claim("Id",userId.ToString()));
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
             identity.AddClaim(new Claim(AccountSource.LoginSource, AccountSource.Git));
             var principal = new ClaimsPrincipal(identity);
             await _context.HttpContext.SignInAsync("login", principal, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTimeOffset.MaxValue });//
@@ -65,9 +67,10 @@ namespace WhyBlog.DominService
             GitUser gitUser = JsonConvert.DeserializeObject<GitUser>(userStr);
             if (gitUser.Login == null)
                 return new UserView { NickName="Token过期" };
+           int userId= CreateUser(gitUser);
             //插入Cookie
-            await InserCookie(gitUser);
-            CreateUser(gitUser);
+            await InserCookie(gitUser,userId);
+            
             UserView userView = _mapper.Map<UserView>(gitUser);
             return userView;
         }
@@ -76,21 +79,24 @@ namespace WhyBlog.DominService
         /// 创建用户
         /// </summary>
         /// <param name="user"></param>
-        /// <returns></returns>
-        private void CreateUser(GitUser gitUser)
+        /// <returns>user Id</returns>
+        private int CreateUser(GitUser gitUser)
         {
+            int userId = 0;
             User user = _mapper.Map<User>(gitUser);
             var existedUser = _userDao.Get(p => p.Sid == gitUser.Id && p.UserSource == AccountSource.Git).FirstOrDefault();
             if (existedUser != null)
             {
                 user.Id = existedUser.Id;
+                userId = user.Id;
                 _userDao.Update(existedUser, user);
             }
 
             else
             {
-                _userDao.Add(user);
+              userId=  _userDao.Add(user);
             }
+            return userId;
         }
 
         public async Task SignOut()

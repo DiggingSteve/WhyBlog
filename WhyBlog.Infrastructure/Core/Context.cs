@@ -20,21 +20,25 @@ namespace WhyBlog.Infrastructure.Core
 
         public HttpContext HttpContext { get; set; }
 
+        public BlogUser BlogUser { get; set; }
+
 
         public Context( HttpContext httpContext)
         {
             ClaimsPrincipal User = httpContext.User;
+            BlogUser = new BlogUser();
             HttpContext = httpContext;
             Session = httpContext.Session;
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Sid);
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
             if (string.IsNullOrEmpty(userIdClaim?.Value))
                 return;
-            //if (int.TryParse(userIdClaim.Value, out int userId))
-            //    GitUser.Id = userId;
+            if (int.TryParse(userIdClaim.Value, out int userId))
+                BlogUser.Id = userId;
 
-            //// UsreName
-            //var userNameClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
-            //GitUser.Name = userNameClaim?.Value;
+
+            // UsreName
+            var userNameClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+            BlogUser.Name = userNameClaim?.Value;
 
 
 

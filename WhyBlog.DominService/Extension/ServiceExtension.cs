@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WhyBlog.DominService
 {
-   public static class ServiceExtension
+    public static class ServiceExtension
     {
         /// <summary>
         /// 此处注册所有DominService
@@ -15,7 +15,8 @@ namespace WhyBlog.DominService
         public static IServiceCollection AddDominService(this IServiceCollection services)
         {
 
-            return services.AddScoped<ISignInService, SignInService>();
+            return services.AddScoped<ISignInService, SignInService>()
+                            .AddScoped<IBlogService, BlogService>();
         }
     }
 }

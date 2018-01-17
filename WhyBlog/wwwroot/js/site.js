@@ -21,16 +21,15 @@ var _tool = {};
         $text.text(str);
         var textWidth = $alert.width() / 2;
         var bodyWidth = $("body").width() / 2;
-        var moveWidth = bodyWidth - textWidth;
+        var moveWidth = parseInt(bodyWidth - textWidth);
         console.log(moveWidth);
         $alert.css("transform", "translate3d(" + moveWidth + "px,0,0)");
-        if (!!callbcak) {
-            callbcak();
-        }
         setTimeout(function () {
             $alert.css("transform", "translate3d(" + -bodyWidth + "px,0,0)");
-            
-        }, 3500);
+            if (!!callbcak) {
+                callbcak();
+            }
+        }, 3000);
     }
 })()
 

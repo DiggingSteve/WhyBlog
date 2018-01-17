@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WhyBlog.Models.Do
 {
-    [Table("TBU_User")]
+    [Table("TB_User")]
     public class User : BaseEntity
     {
-        [Column(TypeName = "nvarchar(50)")]
+        [Column(TypeName = "varchar(50)")]
         public string UserName { get; set; }
 
 

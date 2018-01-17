@@ -1,5 +1,5 @@
 ﻿@model IndexView
-@section css{
+@section head{
     <link href="~/css/index.css" rel="stylesheet" />
     <script src="~/plugin/kindEditor/kindeditor-all-min.js"></script>
 
@@ -11,7 +11,7 @@
             <div class="head"><span id="btnCloseBlog">x</span></div>
             <div class="content">
                 <div class="title">
-                    <input type="text" class="input" placeholder="Please input title" />
+                    <input id="txt_title" type="text" class="input" placeholder="Please input title" />
                 </div>
                 <div class="text-edit"><textarea id="kindEditor"></textarea></div>
             </div>
@@ -22,12 +22,14 @@
     </div>
 
 </div>
+@section Scripts{ 
 <script>
     (function () {
         init();
         function init() {
             initEvent();
             initEditor();
+            initBlogs();
         }
         function initEvent() {
             var $blogDiv = $(".blog-edit");
@@ -37,12 +39,12 @@
             $("#btnCloseBlog").click(function () {
                 $blogDiv.hide();
             });
+         
         }
 
         function initEditor() {
             var editor;
             KindEditor.ready(function (K) {
-
                  editor = K.create('#kindEditor', {
                     width: '100%',
                     height: '380px',
@@ -51,19 +53,48 @@
                         'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
                         'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
                         'superscript', 'clearhtml', 'quickformat', 'selectall', '|', '/',
-                        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
                         'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|',
                         'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
                         'anchor'
                     ]
                 });
             });
-
             $("#btnCommitBlog").click(function () {
-                var html = editor.html();
-                console.log(html);
+
+                var url = config.api_url + "/BlogApi/NewBlog";
+                var data = {
+                    title: $("#txt_title").val(),
+                    html: editor.html()
+                };
+                ajaxRequest.post(data, url).done(function (d) {
+                    if (d) {
+                        alert("Success", function () {
+                            $(".blog-edit").hide();
+                            editor.html('');
+                            $("#txt_title").val("");
+                        })
+                    }
+
+                });
             });
+
+        }
+
+        function initBlogs() {
+            var url = config.api_url + "/BlogApi/GetBlogs";
+            var data = {
+            
+            };
+            ajaxRequest.get(data, url).done(function (d) {
+                console.log(d);
+
+            });
+        }
+
+        function createBlogBlock(blog) {
 
         }
     })();
 </script>
+    }
