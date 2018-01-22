@@ -6,7 +6,9 @@
 }
 <div class="index_wrap">
     <div class="blog-wrap">
-        <ul class=""></ul>
+        <ul class="list" id="blog_container">
+           
+        </ul>
     </div>
     <div class="blog-edit">
         <div class="blog-edit-wrap">
@@ -28,6 +30,7 @@
 <script>
     (function () {
         init();
+        
         function init() {
             initEvent();
             initEditor();
@@ -89,14 +92,30 @@
             
             };
             ajaxRequest.get(data, url).done(function (d) {
-                console.log(d);
+                d.forEach(function (v) {
+                    blogObj.newBlock(v);
+                });
 
             });
         }
 
-        function createBlogBlock(blog) {
-            
+        function blog(containerId) {
+
+            this.init(containerId);
         }
+
+        blog.prototype.init = function (id) {
+            this.$container = $(id);
+        }
+        blog.prototype.newBlock = function (data) {
+            var $li = $("<li></li>").appendTo(this.$container);
+
+            var $div = $("<div></div>").addClass("block").appendTo($li);
+            $div.text(data.title);
+
+        }
+
+        var blogObj = new blog("#blog_container");
     })();
 </script>
     }
