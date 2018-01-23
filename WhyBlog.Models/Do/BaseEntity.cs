@@ -17,5 +17,13 @@ namespace WhyBlog.Models.Do
 
         
         public bool IsDeleted { get; set; }
+
+        public DateTime CreateTime { get; set; }
+
+        public DateTime ModifyTime { get; set; }
+
+        public DateTime DeleteTime { get; set; }
+
+        
     }
 }

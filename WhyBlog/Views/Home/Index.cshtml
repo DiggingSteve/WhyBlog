@@ -1,14 +1,14 @@
 ﻿@model IndexView
 @section head{
     <link href="~/css/index.css" rel="stylesheet" />
-    <script src="~/plugin/kindEditor/kindeditor-all-min.js"></script>
+
+    <link href="~/plugin/wangeEditor/wangEditor.css" rel="stylesheet" />
+    <script src="~/plugin/wangeEditor/wangEditor.js"></script>
 
 }
 <div class="index_wrap">
     <div class="blog-wrap">
-        <ul class="list" id="blog_container">
-           
-        </ul>
+        <ul class="list" id="blog_container"></ul>
     </div>
     <div class="blog-edit">
         <div class="blog-edit-wrap">
@@ -17,7 +17,11 @@
                 <div class="title">
                     <input id="txt_title" type="text" class="input" placeholder="Please input title" />
                 </div>
-                <div class="text-edit"><textarea id="kindEditor"></textarea></div>
+                <div class="text-edit">
+                    <div id="editor">
+                        
+                    </div>
+                </div>
             </div>
             <div class="foot">
                 <div><button class="btn" type="button" id="btnCommitBlog">Commit</button></div>
@@ -26,96 +30,81 @@
     </div>
 
 </div>
-@section Scripts{ 
-<script>
-    (function () {
-        init();
-        
-        function init() {
-            initEvent();
-            initEditor();
-            initBlogs();
-        }
-        function initEvent() {
-            var $blogDiv = $(".blog-edit");
-            $("#btnBlog").click(function () {
-                $blogDiv.show();
-            });
-            $("#btnCloseBlog").click(function () {
-                $blogDiv.hide();
-            });
-         
-        }
+@section Scripts{
+    <script>
+        (function () {
+            init();
 
-        function initEditor() {
-            var editor;
-            KindEditor.ready(function (K) {
-                 editor = K.create('#kindEditor', {
-                    width: '100%',
-                    height: '380px',
-                    items: [
-                        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
-                        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
-                        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
-                        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', '/',
-                        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
-                        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|',
-                        'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
-                        'anchor'
-                    ]
+            function init() {
+                initEvent();
+                initEditor();
+                initBlogs();
+            }
+            function initEvent() {
+                var $blogDiv = $(".blog-edit");
+                $("#btnBlog").click(function () {
+                    $blogDiv.show();
                 });
-            });
-            $("#btnCommitBlog").click(function () {
+                $("#btnCloseBlog").click(function () {
+                    $blogDiv.hide();
+                });
 
-                var url = config.api_url + "/BlogApi/NewBlog";
+            }
+
+            function initEditor() {
+                var E = window.wangEditor;
+                var editor2 = new E('#editor');
+                editor2.create();
+                $("#btnCommitBlog").click(function () {
+                    var url = config.api_url + "/BlogApi/NewBlog";
+                    var data = {
+                        title: $("#txt_title").val(),
+                        html: editor.html()
+                    };
+                    ajaxRequest.post(data, url).done(function (d) {
+                        if (d) {
+                            alert("Success", function () {
+                                $(".blog-edit").hide();
+                                editor.html('');
+                                $("#txt_title").val("");
+                            })
+                        }
+
+                    });
+                });
+
+            }
+
+            function initBlogs() {
+                var url = config.api_url + "/BlogApi/GetBlogs";
                 var data = {
-                    title: $("#txt_title").val(),
-                    html: editor.html()
+
                 };
-                ajaxRequest.post(data, url).done(function (d) {
-                    if (d) {
-                        alert("Success", function () {
-                            $(".blog-edit").hide();
-                            editor.html('');
-                            $("#txt_title").val("");
-                        })
-                    }
+                ajaxRequest.get(data, url).done(function (d) {
+                    d.forEach(function (v) {
+                        blogObj.newBlock(v);
+                    });
 
                 });
-            });
+            }
 
-        }
+            function blog(containerId) {
 
-        function initBlogs() {
-            var url = config.api_url + "/BlogApi/GetBlogs";
-            var data = {
-            
-            };
-            ajaxRequest.get(data, url).done(function (d) {
-                d.forEach(function (v) {
-                    blogObj.newBlock(v);
-                });
+                this.init(containerId);
+            }
 
-            });
-        }
+            blog.prototype.init = function (id) {
+                this.$container = $(id);
+            }
+            blog.prototype.newBlock = function (data) {
+                var $li = $("<li></li>").appendTo(this.$container);
 
-        function blog(containerId) {
+                var $div = $("<div></div>").addClass("block").appendTo($li);
+                $div.text(data.title);
 
-            this.init(containerId);
-        }
+            }
 
-        blog.prototype.init = function (id) {
-            this.$container = $(id);
-        }
-        blog.prototype.newBlock = function (data) {
-            var $li = $("<li></li>").appendTo(this.$container);
-
-            var $div = $("<div></div>").addClass("block").appendTo($li);
-            $div.text(data.title);
-
-        }
-
-        var blogObj = new blog("#blog_container");
-    })();
-</script>
-    }
+            var blogObj = new blog("#blog_container");
+        })();
+    </script>
+}

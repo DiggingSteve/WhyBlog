@@ -29,6 +29,7 @@ namespace WhyBlog.EF.Dao
 
         public int Add(T model)
         {
+            model.CreateTime = DateTime.Now;
             db.Add<T>(model);
             return db.SaveChanges();
         }
@@ -47,12 +48,17 @@ namespace WhyBlog.EF.Dao
 
         public virtual int Update(T oldEntity ,T newEntity)
         {
+            newEntity.ModifyTime = DateTime.Now;
             db.Entry(oldEntity).CurrentValues.SetValues(newEntity);
             return db.SaveChanges();
         }
 
         public virtual int Update(IEnumerable<T> oldLst,IEnumerable<T>newLst)
         {
+            foreach(var item in newLst)
+            {
+                item.ModifyTime = DateTime.Now;
+            }
             db.Entry(oldLst).CurrentValues.SetValues(newLst);
             return db.SaveChanges();
         }

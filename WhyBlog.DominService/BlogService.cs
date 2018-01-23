@@ -26,6 +26,7 @@ namespace WhyBlog.DominService
         public bool InsertBlog(BlogInputPara input)
         {
             input.Uid = _context.BlogUser.Id;
+            if (string.IsNullOrWhiteSpace(input.Title)) { input.Title = "未命名标题"; }
             Blog blog = _mapper.Map<Blog>(input);
             return _blogDao.Add(blog) > 0 ? true : false;
         }

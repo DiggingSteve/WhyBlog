@@ -7,5 +7,6 @@ namespace WhyBlog.Models.Do.Interface
    public interface ISoftDeleted
     {
         bool IsDeleted { get; set; }
+         DateTime DeleteTime { get; set; }
     }
 }

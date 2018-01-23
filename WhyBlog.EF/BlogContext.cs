@@ -67,6 +67,7 @@ namespace WhyBlog.EF
             {
                 var entityObj = entity.Entity as ISoftDeleted;
                 entityObj.IsDeleted = true;
+                entityObj.DeleteTime = DateTime.Now;
                 entity.State = EntityState.Modified;
             }
         }
