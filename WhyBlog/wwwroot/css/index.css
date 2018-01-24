@@ -10,23 +10,40 @@
     position:absolute;
     display: none;
     margin: 0px auto;
-    height: 400px;
-    width: 80%;
-    background-color: rgba(0,0,0,.5);
+    height: 380px;
+    width: 650px;
     border-radius: 8px;
+    background:#fff;
 }
 
     .blog-edit .head {
         display: flex;
         justify-content: flex-end;
-        padding-right: 20px;
+        
         cursor: pointer;
     }
 
-    .blog-edit .content .title {
+#btnCloseBlog {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: #1d92a6;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 25px;
+    color: #fff;
+    border: 2px solid #fff;
+    right: -13px;
+    top: -13px;
+    transition: .5s;
+    cursor: pointer;
+}
+    #btnCloseBlog:hover{
+        transform:rotate(180deg);
+    } .blog-edit .content .title {
         display: flex;
         justify-content: flex-start;
-        padding: 0 60% 0 0;
+        border: 2px solid #dedede;
         margin-bottom: 10px;
     }
 
@@ -42,6 +59,7 @@
 
 .blog-edit-wrap {
     padding: 8px;
+    border: 2px solid #dedede;
 }
 
 .blog-wrap {
