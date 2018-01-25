@@ -12,10 +12,16 @@
   margin: 0;
   box-sizing: border-box;
 }
+.w-e-toolbar {
+border:none !important;
+}
+.w-e-text{
+    overflow-y:auto !important;
+}
 .w-e-clear-fix:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .w-e-toolbar .w-e-droplist {
@@ -200,14 +206,17 @@
   /* 为 emotion panel 定制的样式 */
   /* 上传图片的 panel 定制样式 */
 }
+.w-e-text-container {
+    border:none !important;
+}
 .w-e-text-container .w-e-panel-container .w-e-panel-close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 5px;
-  margin: 2px 5px 0 0;
-  cursor: pointer;
-  color: #999;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px;
+    margin: 2px 5px 0 0;
+    cursor: pointer;
+    color: #999;
 }
 .w-e-text-container .w-e-panel-container .w-e-panel-close:hover {
   color: #333;
