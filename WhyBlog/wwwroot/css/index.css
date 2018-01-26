@@ -1,22 +1,35 @@
 ﻿.index_wrap {
     position: relative;
-    width: 70%;
     height: 100%;
     display: flex;
+    flex-direction: row-reverse;
     justify-content: center;
     padding-top: 40px;
 }
+
 .blog-edit {
     position:absolute;
-    display: none;
-    margin: 0px auto;
-    height: 380px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
     width: 650px;
     border-radius: 8px;
     background:#fff;
+    z-index:999;
+}
+.grey-bg {
+    position: fixed;
+    z-index:999;
+    top:0;
+    bottom:0;
+    display: none;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,.5);
 }
 
     .blog-edit .head {
+        transform:translate(0,0);/*如果父级元素设置了transform属性，position:relative/absolute/fixed会基于此定位，*/
         display: flex;
         justify-content: flex-end;
         
@@ -33,14 +46,15 @@
     border-radius: 25px;
     color: #fff;
     border: 2px solid #fff;
-    right: -13px;
-    top: -13px;
+    right: -25px;
+    top: -25px;
     transition: .5s;
     cursor: pointer;
 }
     #btnCloseBlog:hover{
         transform:rotate(180deg);
-    } .blog-edit .content .title {
+    }
+    .blog-edit .content .title {
         display: flex;
         justify-content: flex-start;
         border: 2px solid #dedede;
@@ -63,7 +77,8 @@
 }
 
 .blog-wrap {
-    width: 75%;
+    margin-right:50px;
+    min-width:600px;
 }
 
     .blog-wrap .list .block {
@@ -80,3 +95,75 @@
     #wangEditor {
         background-color: #fff;
     }
+
+
+.right-con {
+    
+    border-radius: 2px;
+    
+    width: 300px;
+    height: 300px;
+    top: 200px;
+    background: #fff;
+    margin-bottom: 10px;
+    z-index: 997;
+    overflow: hidden;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    font-size: 15px;
+    font-weight: 300;
+    box-shadow: 0 1px 10px #ccc;
+}
+
+    .right-con .sign-wrap {
+        text-align: center;
+        height: 100%;
+    }
+
+        .right-con .sign-wrap .block {
+            border-bottom: 1px solid #d0d0d0;
+        }
+
+        .right-con .sign-wrap .git {
+            font-size: 15px;
+            line-height: 45px;
+        }
+
+#userWrap {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    align-items: center; /*垂直居中*/
+}
+
+    #userWrap .info {
+        margin: 0 15px;
+    }
+
+.icon-tuichu:hover {
+    cursor: pointer;
+}
+
+#userWrap .info .name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#userIcon {
+    width: 50px;
+    height: 50px;
+    transition: .2s;
+    border-radius: 50%;
+}
+
+    #userIcon:hover {
+        border-radius: 10px;
+    }
+
+.button-group span {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+

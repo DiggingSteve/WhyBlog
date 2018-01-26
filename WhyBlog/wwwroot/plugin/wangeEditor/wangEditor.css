@@ -207,7 +207,8 @@ border:none !important;
   /* 上传图片的 panel 定制样式 */
 }
 .w-e-text-container {
-    border:none !important;
+    border:solid 1px #eee ;
+    border-width:0 0 1px 0 !important;
 }
 .w-e-text-container .w-e-panel-container .w-e-panel-close {
     position: absolute;

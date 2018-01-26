@@ -46,7 +46,6 @@
     outline: none;
     font-size: 15px;
     font-family: Consolas;
-    
     height: 30px;
     width: 100%;
     line-height: 30px;
@@ -60,7 +59,7 @@
     color: #fff;
     top: 0;
     
-    margin: 60px auto 0;
+    margin: 180px auto 0;
     max-width:250px;
     transform: translateX(-250px);
     background: rgba(0,0,0,.8);
@@ -74,8 +73,10 @@
         
         font-size:16px;
     }
-    @-webkit-keyframes rotateplane {
-        0% {
+
+
+@-webkit-keyframes rotateplane {
+    0% {
         -webkit-transform: perspective(120px);
         background-color:#fff;
         

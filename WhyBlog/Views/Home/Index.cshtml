@@ -6,10 +6,7 @@
     <script src="~/plugin/wangeEditor/wangEditor.js"></script>
 
 }
-<div class="index_wrap">
-    <div class="blog-wrap">
-        <ul class="list" id="blog_container"></ul>
-    </div>
+<div class="grey-bg">
     <div class="blog-edit">
         <div class="blog-edit-wrap">
             <div class="head"><span id="btnCloseBlog">x</span></div>
@@ -28,20 +25,60 @@
             </div>
         </div>
     </div>
+</div>
+<div class="index_wrap">
+    <div class="right-con">
+        <div class="sign-wrap">
+            @if (!Model.IsLogin)
+            {
+                <div style="cursor:pointer;" id="gitSignIn" class="block"><a class="git"><i style="margin-right:10px;" class="iconfont icon-Git"></i>Github Sign In</a></div>
+            }
+            @if (Model.IsLogin)
+            {
+                <div id="userWrap" class="block">
+                    <div class="icon"><img id="userIcon" src="@Model.User.Avatar_url" /></div>
+                    <div class="info">
+                        <div>
+                            <span class="name" id="userName">@Model.User.NickName</span>
+                        </div>
+                        <div>
+                            <span id="userEmail">@Model.User.Email</span>
+                        </div>
+
+                    </div>
+                    <div><i id="icon_signOut" class="iconfont icon-tuichu"></i></div>
+                </div>
+                <div class="button-group">
+                    <div><span id="btnBlog">Add New</span></div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="blog-wrap">
+        <ul class="list" id="blog_container"></ul>
+    </div>
+  
+    
 
 </div>
+
 @section Scripts{
     <script>
         (function () {
+            var isLogin = (function () {
+                var loginFlag = '@Model.IsLogin';
+                return (loginFlag === 'True') ? true : false;
+            })();
             init();
-
             function init() {
                 initEvent();
                 initEditor();
-                initBlogs();
+                if (isLogin) {
+                    initBlogs();
+                }
             }
             function initEvent() {
-                var $blogDiv = $(".blog-edit");
+                var $blogDiv = $(".grey-bg");
                 $("#btnBlog").click(function () {
                     $blogDiv.show();
                 });
@@ -75,7 +112,7 @@
                     'undo',  // 撤销
                     'redo'  // 重复
                 ];
-    
+
                 editor.create();
                 $("#btnCommitBlog").click(function () {
                     var url = config.api_url + "/BlogApi/NewBlog";
@@ -85,10 +122,12 @@
                     };
                     ajaxRequest.post(data, url).done(function (d) {
                         if (d) {
+                            $(".grey-bg").hide();
                             alert("Success", function () {
-                                $(".blog-edit").hide();
+                                
                                 editor.txt.clear();
                                 $("#txt_title").val("");
+                                window.location.reload();
                             })
                         }
 

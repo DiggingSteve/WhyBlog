@@ -29,33 +29,7 @@
         <div class="title"><span>Why-Blog</span></div>
       
     </div>
-    <div class="right-con">
-        <div class="sign-wrap">
-            @if (!Model.IsLogin)
-            {
-                <div style="cursor:pointer;" id="gitSignIn" class="block"><a class="git"><i style="margin-right:10px;" class="iconfont icon-Git"></i>Github Sign In</a></div>
-            }
-            @if (Model.IsLogin)
-            {
-                <div id="userWrap" class="block">
-                    <div class="icon"><img id="userIcon" src="@Model.User.Avatar_url" /></div>
-                    <div class="info">
-                        <div>
-                            <span class="name" id="userName">@Model.User.NickName</span>
-                        </div>
-                        <div>
-                            <span id="userEmail">@Model.User.Email</span>
-                        </div>
-
-                    </div>
-                    <div><i id="icon_signOut" class="iconfont icon-tuichu"></i></div>
-                </div>
-                <div class="button-group">
-                    <div><span id="btnBlog">Add New</span></div>
-                </div>
-            }
-        </div>
-    </div>
+    
     <div class="container body-content">
         @RenderBody()
         <div class="loading"></div>
