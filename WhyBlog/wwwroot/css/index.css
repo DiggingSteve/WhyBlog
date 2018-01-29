@@ -84,7 +84,7 @@
     .blog-wrap .list .block {
         background: #fff;
         margin-bottom: 10px;
-        line-height: 50px;
+        
         overflow: hidden;
         margin-bottom: 15px;
         border-radius: 2px;
@@ -92,9 +92,14 @@
         font-weight: 300;
         box-shadow: 0 1px 10px #ccc;
     }
-    #wangEditor {
-        background-color: #fff;
-    }
+
+        .blog-wrap .list .block .title{
+         font-size:20px;
+           
+        }
+        #wangEditor {
+            background-color: #fff;
+        }
 
 
 .right-con {
