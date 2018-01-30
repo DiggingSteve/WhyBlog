@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using WhyBlog.EF.Dao;
 using WhyBlog.Models.Do;
 using WhyBlog.Models.Dto;
+using WhyBlog.Models.Vo;
+using System.Linq;
 
 namespace WhyBlog.DominService
 {
@@ -18,9 +21,13 @@ namespace WhyBlog.DominService
             _blogDao = blogDao;
         }
 
-        public IEnumerable<Blog> GetBlogs()
+        public IEnumerable<BlogListView> GetBlogs()
         {
-         return   _blogDao.Get(p => p.Uid == _context.BlogUser.Id);
+           DbSet<Blog> a= _blogDao.Get();
+            return a.Where(p => p.Uid == _context.BlogUser.Id).Include(p => p.User).
+                Select(p => new BlogListView {NickName=p.User.UserName,CreateTime=p.CreateTime,Summary=p.Summary,Title=p.Title,Uid=p.Uid });
+           
+
         }
 
         public bool InsertBlog(BlogInputPara input)

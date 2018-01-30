@@ -11,11 +11,17 @@ namespace WhyBlog.Models.Do
         /// <summary>
         /// user id foreign key
         /// </summary>
-        public int Uid { get; set; }
-        [Column(TypeName = "text")]
+    
+        [Column(TypeName = "longtext")]
         public string Html { get; set; }
+
+        [Column(TypeName = "longtext")]
+        public string Summary { get; set; }
 
         [Column(TypeName ="varchar(100)")]
         public string Title { get; set; }
+        public int Uid { get; set; }
+        [ForeignKey("Uid")]
+        public  User User { get; set; }
     }
 }

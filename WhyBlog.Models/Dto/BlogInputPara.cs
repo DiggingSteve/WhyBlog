@@ -11,5 +11,7 @@ namespace WhyBlog.Models.Dto
         public string Html { get; set; }
 
         public int Uid { get; set; }
+
+        public string Summary { get; set; }
     }
 }

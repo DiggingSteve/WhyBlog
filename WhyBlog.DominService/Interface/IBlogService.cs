@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using WhyBlog.Models.Do;
 using WhyBlog.Models.Dto;
+using WhyBlog.Models.Vo;
 
 namespace WhyBlog.DominService
 {
@@ -10,6 +11,6 @@ namespace WhyBlog.DominService
     {
         bool InsertBlog(BlogInputPara input);
 
-        IEnumerable<Blog> GetBlogs();
+        IEnumerable<BlogListView> GetBlogs();
     }
 }

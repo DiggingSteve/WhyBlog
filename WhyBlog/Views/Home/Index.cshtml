@@ -54,7 +54,7 @@
             }
         </div>
     </div>
-    <div class="blog-wrap">
+    <div class="blog-wrap scrollbar">
         <ul class="list" id="blog_container"></ul>
     </div>
 
@@ -118,13 +118,13 @@
                     var url = config.api_url + "/BlogApi/NewBlog";
                     var data = {
                         title: $("#txt_title").val(),
-                        html: editor.txt.html()
+                        html: editor.txt.html(),
+                        summary: editor.txt.text().substr(0, 200)
                     };
                     ajaxRequest.post(data, url).done(function (d) {
                         if (d) {
                             $(".grey-bg").hide();
                             alert("Success", function () {
-
                                 editor.txt.clear();
                                 $("#txt_title").val("");
                                 window.location.reload();
@@ -161,9 +161,9 @@
                 var $li = $("<li></li>").appendTo(this.$container);
                 var $block = $("<div class='block'></div>").appendTo($li);
                 var $title = this.newTitle(data.title).appendTo($block);
-                var $content = $("<div class='content'></div>").appendTo($block);
-                var $tail = $("<div class='tail'></div>").appendTo($block);
-                $title.text(data.title);
+                var $content = this.newContent(data.summary).appendTo($block);
+                //var $tail = this.newTail.appendTo($block);
+                
 
             }
             blog.prototype.newTitle = function (text) {
@@ -171,8 +171,12 @@
                 return $title;
             }
             blog.prototype.newContent = function (text) {
-                var $title = $("<div class='title'>" + text + "</div>");
-                return $title;
+                var $content = $("<div class='content'>" + text + "...</div>");
+                return $content;
+            }
+            blog.prototype.newTail = function (text) {
+                var $tail = $("<div class='tail'>" + text + "</div>");
+                return $tail;
             }
 
 

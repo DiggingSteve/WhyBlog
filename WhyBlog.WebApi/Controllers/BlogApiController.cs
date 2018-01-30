@@ -7,6 +7,7 @@ using WhyBlog.DominService;
 using WhyBlog.Infrastructure.Core;
 using WhyBlog.Models.Do;
 using WhyBlog.Models.Dto;
+using WhyBlog.Models.Vo;
 
 namespace WhyBlog.WebApi.Controllers
 {
@@ -29,7 +30,7 @@ namespace WhyBlog.WebApi.Controllers
 
 
         [HttpGet]
-        public IEnumerable<Blog> GetBlogs()
+        public IEnumerable<BlogListView> GetBlogs()
         {
 
             return _blogService.GetBlogs();

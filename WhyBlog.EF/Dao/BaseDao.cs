@@ -41,9 +41,18 @@ namespace WhyBlog.EF.Dao
             return db.SaveChanges();
         }
 
-        public virtual IEnumerable<T> Get(Expression<Func<T,bool>> expression)
+        public virtual DbSet<T> Get()
         {
-            return db.Set<T>().Where(expression).Where(p=>p.IsDeleted!=true);
+            var a = db.Set<T>();
+            return a;
+            
+        }
+
+        public virtual IEnumerable<T> Get(Expression<Func<T, bool>> expression)
+        {
+            var a = db.Set<T>().Where(expression).Where(p => p.IsDeleted != true);
+            return a;
+
         }
 
         public virtual int Update(T oldEntity ,T newEntity)
