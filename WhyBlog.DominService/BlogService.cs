@@ -24,7 +24,7 @@ namespace WhyBlog.DominService
         public IEnumerable<BlogListView> GetBlogs()
         {
            DbSet<Blog> a= _blogDao.Get();
-            return a.Where(p => p.Uid == _context.BlogUser.Id).Include(p => p.User).
+            return a.Where(p => p.Uid == _context.BlogUser.Id).
                 Select(p => new BlogListView {NickName=p.User.UserName,CreateTime=p.CreateTime,Summary=p.Summary,Title=p.Title,Uid=p.Uid });
            
 

@@ -116,10 +116,15 @@
                 editor.create();
                 $("#btnCommitBlog").click(function () {
                     var url = config.api_url + "/BlogApi/NewBlog";
+                    var reg = /<img[^>]*>/;
+                    var pic = editor.txt.html().match(reg);
+                    var picSummary = "";
+                    if (!!pic) { picSummary = pic[0]; }
                     var data = {
                         title: $("#txt_title").val(),
                         html: editor.txt.html(),
-                        summary: editor.txt.text().substr(0, 200)
+                        summary: editor.txt.text().substr(0, 200),
+                        picSummary: picSummary
                     };
                     ajaxRequest.post(data, url).done(function (d) {
                         if (d) {
