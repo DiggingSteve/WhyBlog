@@ -15,8 +15,9 @@ namespace WhyBlog.Models.Vo
 
       
         public string Summary { get; set; }
+        public string PicSummary { get; set; }
 
-       
+
         public string Title { get; set; }
     }
 }

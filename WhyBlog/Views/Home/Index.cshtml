@@ -54,7 +54,7 @@
             }
         </div>
     </div>
-    <div class="blog-wrap scrollbar">
+    <div class="blog-wrap">
         <ul class="list" id="blog_container"></ul>
     </div>
 
@@ -166,8 +166,8 @@
                 var $li = $("<li></li>").appendTo(this.$container);
                 var $block = $("<div class='block'></div>").appendTo($li);
                 var $title = this.newTitle(data.title).appendTo($block);
-                var $content = this.newContent(data.summary).appendTo($block);
-                //var $tail = this.newTail.appendTo($block);
+                var $content = this.newContent(data.summary, data.picSummary).appendTo($block);
+                var $tail = this.newTail(data).appendTo($block);
                 
 
             }
@@ -175,12 +175,16 @@
                 var $title = $("<div class='title'>" + text + "</div>");
                 return $title;
             }
-            blog.prototype.newContent = function (text) {
-                var $content = $("<div class='content'>" + text + "...</div>");
+            blog.prototype.newContent = function (summary, picSummary) {
+                var $content = $("<div class='content'></div>");
+                if (!!picSummary) {
+                    var $picSummary = $("<div class='pic'>" + picSummary + "</div>").appendTo($content);
+                }
+                var $summary = $("<div>" + summary + "...</div>").appendTo($content);
                 return $content;
             }
-            blog.prototype.newTail = function (text) {
-                var $tail = $("<div class='tail'>" + text + "</div>");
+            blog.prototype.newTail = function (data) {
+                var $tail = $("<div class='tail'>" + data.nickName+data.createTime + "</div>");
                 return $tail;
             }
 
