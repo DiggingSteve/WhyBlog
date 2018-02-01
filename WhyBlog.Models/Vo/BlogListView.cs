@@ -10,8 +10,9 @@ namespace WhyBlog.Models.Vo
         public int Uid { get; set; }
      
         public string NickName { get; set; }
+        public string UserPic { get; set; }
 
-        public DateTime CreateTime { get; set; }
+        public string CreateTime { get; set; }
 
       
         public string Summary { get; set; }

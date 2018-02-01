@@ -165,16 +165,21 @@
             blog.prototype.newBlock = function (data) {
                 var $li = $("<li></li>").appendTo(this.$container);
                 var $block = $("<div class='block'></div>").appendTo($li);
-                var $title = this.newTitle(data.title).appendTo($block);
+                var $head = this.newHead(data).appendTo($block);
                 var $content = this.newContent(data.summary, data.picSummary).appendTo($block);
                 var $tail = this.newTail(data).appendTo($block);
-                
+
 
             }
-            blog.prototype.newTitle = function (text) {
-                var $title = $("<div class='title'>" + text + "</div>");
-                return $title;
+            blog.prototype.newHead = function (data) {
+
+                var $head = $("<div class='head'></div>");
+                
+                var $icon = $("<div class='icon'><img src=" + data.userPic + " /></div>").appendTo($head);
+                var $title = $("<div class='title'>" + data.title + "</div>").appendTo($head);
+                return $head;
             }
+       
             blog.prototype.newContent = function (summary, picSummary) {
                 var $content = $("<div class='content'></div>");
                 if (!!picSummary) {
@@ -184,7 +189,7 @@
                 return $content;
             }
             blog.prototype.newTail = function (data) {
-                var $tail = $("<div class='tail'>" + data.nickName+data.createTime + "</div>");
+                var $tail = $("<div class='tail'>☆" + data.nickName +"☆ "+data.createTime + "</div>");
                 return $tail;
             }
 
