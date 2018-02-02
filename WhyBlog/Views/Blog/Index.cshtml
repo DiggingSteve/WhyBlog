@@ -1,0 +1,45 @@
+﻿@model BlogView
+@{
+    ViewData["Title"] = "Blog";
+
+}
+@section head{
+    
+    <link href="~/plugin/wangeEditor/wangEditor.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link href="~/css/rainbow.css" rel="stylesheet" />
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="~/plugin/wangeEditor/wangEditor.js"></script>
+    <script src="~/js/blog.js"></script><link href="~/css/blog.css" rel="stylesheet" />
+}
+<div class="blog-detail-con" id="blogCon">
+
+</div>
+
+@section Scripts{
+    <script>
+        (function () {
+            $(document).ready(function () {
+
+                initBlog();
+            });
+            function initBlog() {
+                var url = config.api_url + "/BlogApi/GetBlog?id=@Model.Blog.Id";
+                var data = {
+
+                };
+                var blogObj = new Blog("#blogCon");
+                ajaxRequest.get(data, url).done(function (d) {
+                    blogObj.newBlogDetail(d);
+                    $('pre code').each(function (i, block) {
+                        hljs.highlightBlock(block);
+                    });
+
+                });
+            }
+
+        })()
+    </script>
+}

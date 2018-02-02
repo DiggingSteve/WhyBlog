@@ -30,10 +30,17 @@ namespace WhyBlog.WebApi.Controllers
 
 
         [HttpGet]
-        public IEnumerable<BlogListView> GetBlogs()
+        public BlogPageView GetBlogs(int pageIndex)
         {
 
-            return _blogService.GetBlogs();
+            return _blogService.GetBlogs(pageIndex);
+        }
+
+        [HttpGet]
+        public BlogListView GetBlog(int id)
+        {
+
+            return _blogService.GetBlog(id);
         }
     }
 }

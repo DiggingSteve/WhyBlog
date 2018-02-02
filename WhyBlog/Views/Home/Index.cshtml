@@ -2,11 +2,8 @@
 @section head{
     <link href="~/css/index.css" rel="stylesheet" />
     <link href="~/plugin/wangeEditor/wangEditor.css" rel="stylesheet" />
-    <link rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <script src="~/plugin/wangeEditor/wangEditor.js"></script>
-
+    <script src="~/js/blog.js"></script>
 }
 <div class="grey-bg">
     <div class="blog-edit">
@@ -57,6 +54,11 @@
         </div>
     </div>
     <div class="blog-wrap">
+        <div class="page-btn-group">
+            <div class="btn-page" id="btnPre"><i class="iconfont icon-pre"></i></div>
+         <div class="btn-page" pageIndex="1" id="txtPageIndex"></div>
+            <div class="btn-page" id="btnNext" style="transform:rotate(180deg)"><i class="iconfont icon-pre"></i></div>
+        </div>
         <ul class="list" id="blog_container"></ul>
     </div>
 
@@ -67,11 +69,12 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-            $('pre code').each(function (i, block) {
-                hljs.highlightBlock(block);
-            });
+      
         });
         (function () {
+            var pageInfo = {};
+
+            initPagination();
             var isLogin = (function () {
                 var loginFlag = '@Model.IsLogin';
                 return (loginFlag === 'True') ? true : false;
@@ -81,7 +84,9 @@
                 initEvent();
                 initEditor();
                 if (isLogin) {
-                    initBlogs();
+                    
+                    var pageIndex = $("#txtPageIndex").attr("pageIndex");
+                    initBlogs(pageIndex*1);
                 }
             }
             function initEvent() {
@@ -148,60 +153,48 @@
 
             }
 
-            function initBlogs() {
-                var url = config.api_url + "/BlogApi/GetBlogs";
+            function initBlogs(pageIndex) {
+                
+                var url = config.api_url + "/BlogApi/GetBlogs?pageIndex=" + pageIndex+"";
                 var data = {
 
                 };
+                var blogObj = new Blog("#blog_container");
+                $("#blog_container").html("");
                 ajaxRequest.get(data, url).done(function (d) {
-                    d.forEach(function (v) {
+                    d.blogList.forEach(function (v) {
                         blogObj.newBlock(v);
                     });
+                    pageInfo.pageCount = d.pageCount;
+                    var $pageIndex = $("#txtPageIndex");
+                    $pageIndex.text(d.pageIndex + "/" + d.pageCount);
+                    $pageIndex.attr("pageIndex", d.pageIndex);
 
                 });
             }
 
-            function blog(containerId) {
 
-                this.init(containerId);
-            }
+            function initPagination() {
+                $("#btnPre").click(function () { 
+                    var $pageIndex = $("#txtPageIndex");
+                    var pageIndex = $pageIndex.attr("pageIndex");
+                    var requestIndex = pageIndex * 1-1;
+                    if (requestIndex === 0) return;
+                    initBlogs(requestIndex);
+                });
+                $("#btnNext").click(function () {
+                    var $pageIndex = $("#txtPageIndex");
+                    var pageIndex = $pageIndex.attr("pageIndex");
+                    var requestIndex = pageIndex * 1 + 1;
+                    if (requestIndex> pageInfo.pageCount) return;
+                    initBlogs(requestIndex);
+                });
 
-            blog.prototype.init = function (id) {
-                this.$container = $(id);
-            }
-            blog.prototype.newBlock = function (data) {
-                var $li = $("<li></li>").appendTo(this.$container);
-                var $block = $("<div class='block'></div>").appendTo($li);
-                var $head = this.newHead(data).appendTo($block);
-                var $content = this.newContent(data.summary, data.picSummary).appendTo($block);
-                var $tail = this.newTail(data).appendTo($block);
-
-
-            }
-            blog.prototype.newHead = function (data) {
-
-                var $head = $("<div class='head'></div>");
-
-                var $icon = $("<div class='icon'><img src=" + data.userPic + " /></div>").appendTo($head);
-                var $title = $("<div class='title'>" + data.title + "</div>").appendTo($head);
-                return $head;
-            }
-
-            blog.prototype.newContent = function (summary, picSummary) {
-                var $content = $("<div class='content'></div>");
-                if (!!picSummary) {
-                    var $picSummary = $("<div class='pic'>" + picSummary + "</div>").appendTo($content);
-                }
-                var $summary = $("<div>" + summary + "...</div>").appendTo($content);
-                return $content;
-            }
-            blog.prototype.newTail = function (data) {
-                var $tail = $("<div class='tail'>☆" + data.nickName +"☆ "+data.createTime + "</div>");
-                return $tail;
             }
 
 
-            var blogObj = new blog("#blog_container");
+
+            
         })();
     </script>
 }

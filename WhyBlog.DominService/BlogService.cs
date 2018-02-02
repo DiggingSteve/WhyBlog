@@ -21,10 +21,20 @@ namespace WhyBlog.DominService
             _blogDao = blogDao;
         }
 
-        public IEnumerable<BlogListView> GetBlogs()
+        public BlogListView GetBlog(int id)
         {
+            DbSet<Blog> query= _blogDao.Get();
+            Blog blog= query.Where(p => p.Id == id).Include(p=>p.User).FirstOrDefault();
+            BlogListView blogView = _mapper.Map<BlogListView>(blog);
+            return blogView;
+        }
+
+        public BlogPageView GetBlogs(int pageIndex)
+        {
+            int pageSize = 5;
+            BlogPageView blogResult = new BlogPageView();
             DbSet<Blog> a = _blogDao.Get();
-            return a.OrderByDescending(p => p.CreateTime).
+            blogResult.BlogList= a.OrderByDescending(p => p.CreateTime).
                 Select(p => new BlogListView
                 {
                     NickName = p.User.UserName,
@@ -33,9 +43,12 @@ namespace WhyBlog.DominService
                     Title = p.Title,
                     Uid = p.Uid,
                     PicSummary = p.PicSummary,
-                    UserPic = p.User.Avatar_url
-                });
-
+                    UserPic = p.User.Avatar_url,
+                    Id = p.Id
+                }).Skip((pageIndex-1)* pageSize).Take(pageSize);
+            blogResult.PageCount = a.Count()/ pageSize;
+            blogResult.PageIndex = pageIndex;
+            return blogResult;
 
         }
 

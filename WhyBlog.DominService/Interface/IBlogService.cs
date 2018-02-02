@@ -11,6 +11,7 @@ namespace WhyBlog.DominService
     {
         bool InsertBlog(BlogInputPara input);
 
-        IEnumerable<BlogListView> GetBlogs();
+       BlogPageView GetBlogs(int pageIndex);
+        BlogListView GetBlog(int id);
     }
 }
