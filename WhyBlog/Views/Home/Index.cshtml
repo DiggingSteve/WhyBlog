@@ -155,16 +155,21 @@
 
             function initBlogs(pageIndex) {
                 
-                var url = config.api_url + "/BlogApi/GetBlogs?pageIndex=" + pageIndex+"";
+                var url = config.api_url + "/BlogApi/GetBlogs?pageIndex=" + pageIndex + "";
                 var data = {
 
                 };
                 var blogObj = new Blog("#blog_container");
                 $("#blog_container").html("");
                 ajaxRequest.get(data, url).done(function (d) {
+                   
                     d.blogList.forEach(function (v) {
                         blogObj.newBlock(v);
                     });
+                    if (d.pageIndex === d.pageCount) { $("#btnNext").addClass("disabled"); }
+                    if (d.pageIndex === 1) { $("#btnPre").addClass("disabled"); }
+                    if (d.pageIndex > 1) { $("#btnPre").removeClass("disabled"); }
+                    if (d.pageIndex < d.pageCount) { $("#btnNext").removeClass("disabled"); }
                     pageInfo.pageCount = d.pageCount;
                     var $pageIndex = $("#txtPageIndex");
                     $pageIndex.text(d.pageIndex + "/" + d.pageCount);
@@ -178,7 +183,7 @@
                 $("#btnPre").click(function () { 
                     var $pageIndex = $("#txtPageIndex");
                     var pageIndex = $pageIndex.attr("pageIndex");
-                    var requestIndex = pageIndex * 1-1;
+                    var requestIndex = pageIndex * 1 - 1;
                     if (requestIndex === 0) return;
                     initBlogs(requestIndex);
                 });
@@ -186,7 +191,7 @@
                     var $pageIndex = $("#txtPageIndex");
                     var pageIndex = $pageIndex.attr("pageIndex");
                     var requestIndex = pageIndex * 1 + 1;
-                    if (requestIndex> pageInfo.pageCount) return;
+                    if (requestIndex > pageInfo.pageCount) { return; }
                     initBlogs(requestIndex);
                 });
 

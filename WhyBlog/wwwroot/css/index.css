@@ -20,6 +20,9 @@
 .page-btn-group {
     display:flex;
 }
+    .page-btn-group .disabled {
+        color:#c7caca;
+    }
 .btn-page {
     margin: 5px;
     cursor: pointer;
