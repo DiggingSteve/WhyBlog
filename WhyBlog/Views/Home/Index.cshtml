@@ -166,16 +166,19 @@
                     d.blogList.forEach(function (v) {
                         blogObj.newBlock(v);
                     });
-                    if (d.pageIndex === d.pageCount) { $("#btnNext").addClass("disabled"); }
-                    if (d.pageIndex === 1) { $("#btnPre").addClass("disabled"); }
-                    if (d.pageIndex > 1) { $("#btnPre").removeClass("disabled"); }
-                    if (d.pageIndex < d.pageCount) { $("#btnNext").removeClass("disabled"); }
+                    setPaginationBtnStatus(d.pageIndex, d.pageCount);
                     pageInfo.pageCount = d.pageCount;
                     var $pageIndex = $("#txtPageIndex");
                     $pageIndex.text(d.pageIndex + "/" + d.pageCount);
                     $pageIndex.attr("pageIndex", d.pageIndex);
 
                 });
+            }
+            function setPaginationBtnStatus(pageIndex,pageCount) {
+                if (pageIndex === pageCount) { $("#btnNext").addClass("disabled"); }
+                if (pageIndex === 1) { $("#btnPre").addClass("disabled"); }
+                if (pageIndex > 1) { $("#btnPre").removeClass("disabled"); }
+                if (pageIndex < pageCount) { $("#btnNext").removeClass("disabled"); }
             }
 
 
