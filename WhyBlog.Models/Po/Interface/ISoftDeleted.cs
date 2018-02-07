@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WhyBlog.Models.Do.Interface
+namespace WhyBlog.Models.Po.Interface
 {
    public interface ISoftDeleted
     {

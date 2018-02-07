@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WhyBlog.Models.Do
+namespace WhyBlog.Models.Po
 {
     [Table("TB_User")]
     public class User : BaseEntity

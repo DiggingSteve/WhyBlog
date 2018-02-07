@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using WhyBlog.Models.Enum;
 using WhyBlog.EF.Dao;
-using WhyBlog.Models.Do;
+using WhyBlog.Models.Po;
 using AutoMapper;
 using System.Linq;
 

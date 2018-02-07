@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using WhyBlog.Models.Do;
-using WhyBlog.Models.Do.Interface;
+using WhyBlog.Models.Po;
+using WhyBlog.Models.Po.Interface;
 
 namespace WhyBlog.EF
 {

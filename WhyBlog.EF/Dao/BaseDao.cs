@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using WhyBlog.Models.Do;
+using WhyBlog.Models.Po;
 
 namespace WhyBlog.EF.Dao
 {

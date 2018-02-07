@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace WhyBlog.Models.Do
+namespace WhyBlog.Models.Po
 {
     [Table("TB_Blog")]
   public  class Blog :BaseEntity

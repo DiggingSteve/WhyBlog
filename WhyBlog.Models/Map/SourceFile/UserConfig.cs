@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using WhyBlog.Models.Do;
+using WhyBlog.Models.Po;
 using WhyBlog.Models.Dto;
 using WhyBlog.Models.Vo;
 
