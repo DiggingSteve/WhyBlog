@@ -8,17 +8,22 @@ using WhyBlog.Infrastructure.Core;
 using WhyBlog.Models.Po;
 using WhyBlog.Models.Dto;
 using WhyBlog.Models.Vo;
+using System.Net.Http.Headers;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace WhyBlog.WebApi.Controllers
 {
     [Route("api/[controller]/[Action]")]
     public  class BlogApiController:BaseController
     {
+        private IHostingEnvironment _host = null;
         private IBlogService _blogService;
 
-        public BlogApiController(IBlogService blogService, IHttpContextAccessor httpContextAccessor) :base(httpContextAccessor)
+        public BlogApiController(IBlogService blogService, IHttpContextAccessor httpContextAccessor,IHostingEnvironment host) :base(httpContextAccessor)
         {
             _blogService = blogService;
+            _host = host;
         }
 
         [HttpPost]
@@ -26,6 +31,32 @@ namespace WhyBlog.WebApi.Controllers
         {
             
             return _blogService.InsertBlog(input);
+        }
+
+        [HttpPost]
+        public object UploadImg()
+        {
+            var uploadfile = Request.Form.Files;
+            long size = 0;
+            var directoryPath = _host.WebRootPath +" \\upload\\"+ DateTime.Now.ToString("yyyyMMdd") + "\\"+Context.BlogUser.Id.ToString();
+            if (!Directory.Exists(directoryPath)){ Directory.CreateDirectory(directoryPath); }
+            foreach (var file in uploadfile)
+            {
+                //var fileName = file.FileName;
+                var fileName = ContentDispositionHeaderValue
+                                .Parse(file.ContentDisposition)
+                                .FileName
+                                .Trim('"');
+               
+                fileName =directoryPath+ $@"\{fileName}";
+                size += file.Length;
+                using (FileStream fs = System.IO.File.Create(fileName))
+                {
+                    file.CopyTo(fs);
+                    fs.Flush();
+                }
+            }
+            return "";
         }
 
 

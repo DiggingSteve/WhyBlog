@@ -54,11 +54,14 @@
         </div>
     </div>
     <div class="blog-wrap">
-        <div class="page-btn-group">
+        @if (Model.IsLogin)
+        {
+        <div class="page-btn-group" style="display:none;">
             <div class="btn-page" id="btnPre"><i class="iconfont icon-pre"></i></div>
          <div class="btn-page" pageIndex="1" id="txtPageIndex"></div>
             <div class="btn-page" id="btnNext" style="transform:rotate(180deg)"><i class="iconfont icon-pre"></i></div>
         </div>
+        }
         <ul class="list" id="blog_container"></ul>
     </div>
 
@@ -84,7 +87,7 @@
                 initEvent();
                 initEditor();
                 if (isLogin) {
-                    
+                    $(".page-btn-group").show();
                     var pageIndex = $("#txtPageIndex").attr("pageIndex");
                     initBlogs(pageIndex*1);
                 }
@@ -124,7 +127,8 @@
                     'undo',  // 撤销
                     'redo'  // 重复
                 ];
-
+                    // editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
+                editor.customConfig.uploadImgServer = config.api_url + "/BlogApi/UploadImg";  // 上传图片到服务器
                 editor.create();
                 $("#btnCommitBlog").click(function () {
                     var url = config.api_url + "/BlogApi/NewBlog";

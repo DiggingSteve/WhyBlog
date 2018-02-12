@@ -171,14 +171,17 @@
             margin-right: 15px;
         }
 
-    .blog-wrap .list .block .tail {
-        display:flex;
-        font-size: 13px;
-        padding: 3px 6px;
-        color: #863131;
-        font-weight: 400;
-        justify-content:flex-end;
-    }
+            .blog-wrap .list .block .content .pic img{
+                max-width:200px;
+            }
+            .blog-wrap .list .block .tail {
+                display: flex;
+                font-size: 13px;
+                padding: 3px 6px;
+                color: #863131;
+                font-weight: 400;
+                justify-content: flex-end;
+            }
 
 #wangEditor {
     background-color: #fff;
