@@ -38,7 +38,7 @@ namespace WhyBlog.WebApi.Controllers
         {
             var uploadfile = Request.Form.Files;
             long size = 0;
-            var directoryPath = _host.WebRootPath +" \\upload\\"+ DateTime.Now.ToString("yyyyMMdd") + "\\"+Context.BlogUser.Id.ToString();
+            var directoryPath = _host.WebRootPath +"\\upload\\"+ DateTime.Now.ToString("yyyyMMdd") + "\\"+Context.BlogUser.Id.ToString();
             if (!Directory.Exists(directoryPath)){ Directory.CreateDirectory(directoryPath); }
             foreach (var file in uploadfile)
             {
