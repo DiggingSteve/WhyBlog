@@ -22,3 +22,5 @@ rar  http://blog.csdn.net/duanboqiang/article/details/53160655
 jobs -l 查看后台进程
 
 fg % 'pid'调到前台  ctrl +c 停止
+
+dotnet publish  -c Release -r linux-x64

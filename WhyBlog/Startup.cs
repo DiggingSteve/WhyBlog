@@ -66,7 +66,9 @@ namespace WhyBlog
             }
             else
             {
-                app.UseExceptionHandler("/error");
+                app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+               // app.UseExceptionHandler("/error");
             }
             //use the UseAuthentication method to invoke the Authentication Middleware that sets the HttpContext.User property. Call the UseAuthentication method before calling AddMvcWithDefaultRoute in an MVC app or AddMvc in a Razor Pages app:
             //使用UseAuthentication 给HttpContext.User,默认赋值
