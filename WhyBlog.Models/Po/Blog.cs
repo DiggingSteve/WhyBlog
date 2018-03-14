@@ -24,7 +24,7 @@ namespace WhyBlog.Models.Po
         [Column(TypeName ="text")]
         public string PicSummary { get; set; }
         public int Uid { get; set; }
-        [ForeignKey("Uid")]
+        
         public  User User { get; set; }
     }
 }
