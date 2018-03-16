@@ -48,7 +48,7 @@ namespace WhyBlog.WebApi.Controllers
                                 .FileName
                                 .Trim('"');
                
-                fileName =directoryPath+ $@"\{fileName}";
+                fileName =directoryPath+ $@"\\{fileName}";
                 size += file.Length;
                 using (FileStream fs = System.IO.File.Create(fileName))
                 {

@@ -15,6 +15,7 @@ using WhyBlog.DominService;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Http;
+using WhyBlog.Models.Map;
 
 namespace WhyBlog
 {
@@ -37,15 +38,17 @@ namespace WhyBlog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<WhyBlog.EF.BlogContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
-            services.AddDbService();
             services.AddAutoMapper();
+            Mapping.RegisterMappings();
             services.AddDominService();
+
             services.AddMvc().AddJsonOptions(options =>
             {
                 //驼峰式命名，返回js格式 首字母小写
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
             }).AddSessionStateTempDataProvider();
+            
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
             services.AddAuthentication("login").AddCookie("login", options =>
@@ -53,6 +56,7 @@ namespace WhyBlog
                 options.AccessDeniedPath = "/home/contact/";
                 options.LoginPath = "/home/index/";
             });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

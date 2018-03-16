@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using WhyBlog.EF.Dao;
+
 using WhyBlog.Models.Po;
 using WhyBlog.Models.Dto;
 using WhyBlog.Models.Vo;
@@ -34,7 +34,7 @@ namespace WhyBlog.DominService
 
         public BlogPageView GetBlogs(int pageIndex)
         {
-            int pageSize = 2;
+            int pageSize = 10;
             BlogPageView blogResult = new BlogPageView();
             
             blogResult.BlogList= _db.Blogs.OrderByDescending(p => p.CreateTime).
