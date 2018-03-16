@@ -48,6 +48,7 @@ namespace WhyBlog.EF
                 switch (entry.State)
                 {
                     case EntityState.Added:
+                        SetCreateProperties(entry);
                         break;
                     case EntityState.Modified:
                         break;
@@ -69,6 +70,15 @@ namespace WhyBlog.EF
                 entityObj.IsDeleted = true;
                 entityObj.DeleteTime = DateTime.Now;
                 entity.State = EntityState.Modified;
+            }
+        }
+
+        protected void SetCreateProperties(EntityEntry entity)
+        {
+            if (entity.Entity is ICreated)
+            {
+                var entityObj = entity.Entity as ICreated;
+                entityObj.CreateTime = DateTime.Now;
             }
         }
 

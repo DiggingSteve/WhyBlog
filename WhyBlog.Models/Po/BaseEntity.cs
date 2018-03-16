@@ -9,7 +9,7 @@ using WhyBlog.Models.Po.Interface;
 namespace WhyBlog.Models.Po
 {
     
-   public abstract  class BaseEntity:ISoftDeleted
+   public abstract  class BaseEntity:ISoftDeleted,ICreated
     {
         
        [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]  //设置自增

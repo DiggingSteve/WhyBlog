@@ -16,16 +16,18 @@ using WhyBlog.EF.Dao;
 using WhyBlog.Models.Po;
 using AutoMapper;
 using System.Linq;
+using WhyBlog.EF;
 
 namespace WhyBlog.DominService
 {
     public class SignInService : DominService, ISignInService
     {
-        protected IUserDao _userDao;
+     
+        private readonly BlogContext _db;
 
-        public SignInService(IUserDao userDao, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(mapper, httpContextAccessor)
+        public SignInService(BlogContext db, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(mapper, httpContextAccessor)
         {
-            _userDao = userDao;
+            this._db = db;
         }
 
         public UserView GetGitUser()
@@ -33,7 +35,7 @@ namespace WhyBlog.DominService
             ClaimsPrincipal User = _context.HttpContext.User;
             var userSid = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Sid);
             int.TryParse(userSid?.Value, out int sid);
-            var user = _userDao.Get(p => p.Sid == sid && p.UserSource == AccountSource.Git).FirstOrDefault();
+            var user = _db.Users.Where(p => p.Sid == sid && p.UserSource == AccountSource.Git).FirstOrDefault();
             UserView gitUser = _mapper.Map<UserView>(user);
             return gitUser;
         }
@@ -82,21 +84,20 @@ namespace WhyBlog.DominService
         /// <returns>user Id</returns>
         private int CreateUser(GitUser gitUser)
         {
-            int userId = 0;
+            
             User user = _mapper.Map<User>(gitUser);
-            var existedUser = _userDao.Get(p => p.Sid == gitUser.Id && p.UserSource == AccountSource.Git).FirstOrDefault();
+            var existedUser = _db.Users.Where(p => p.Sid == gitUser.Id && p.UserSource == AccountSource.Git).FirstOrDefault();
             if (existedUser != null)
             {
-                user.Id = existedUser.Id;
-                userId = user.Id;
-                _userDao.Update(existedUser, user);
+                return existedUser.Id;
             }
 
             else
             {
-              userId=  _userDao.Add(user);
+                _db.Users.Add(user);
+                return _db.SaveChanges();
             }
-            return userId;
+      
         }
 
         public async Task SignOut()
