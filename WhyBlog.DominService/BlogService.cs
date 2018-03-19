@@ -36,7 +36,7 @@ namespace WhyBlog.DominService
         {
             int pageSize = 10;
             BlogPageView blogResult = new BlogPageView();
-            
+            int count = _db.Blogs.Count();
             blogResult.BlogList= _db.Blogs.OrderByDescending(p => p.CreateTime).
                 Select(p => new BlogListView
                 {
@@ -49,7 +49,7 @@ namespace WhyBlog.DominService
                     UserPic = p.User.Avatar_url,
                     Id = p.Id
                 }).Skip((pageIndex-1)* pageSize).Take(pageSize);
-            blogResult.PageCount = _db.Blogs.Count()/ pageSize;
+            blogResult.PageCount = count / pageSize+1;
             if (blogResult.PageCount == 0) blogResult.PageCount = 1;
             blogResult.PageIndex = pageIndex;
             return blogResult;

@@ -86,11 +86,11 @@
             function init() {
                 initEvent();
                 initEditor();
-                if (isLogin) {
+                
                     $(".page-btn-group").show();
                     var pageIndex = $("#txtPageIndex").attr("pageIndex");
-                    initBlogs(pageIndex*1);
-                }
+                    initBlogs(pageIndex * 1);
+                
             }
             function initEvent() {
                 var $blogDiv = $(".grey-bg");
