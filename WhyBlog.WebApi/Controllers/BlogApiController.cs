@@ -34,11 +34,13 @@ namespace WhyBlog.WebApi.Controllers
         }
 
         [HttpPost]
-        public object UploadImg()
+        public WangEditorResult UploadImg()
         {
             var uploadfile = Request.Form.Files;
             long size = 0;
-            var directoryPath = _host.WebRootPath +"/upload/"+ DateTime.Now.ToString("yyyyMMdd") + "/"+Context.BlogUser.Id.ToString();
+            var result = new WangEditorResult() { Errno = 0 };
+            var relativePath= "/upload/" + DateTime.Now.ToString("yyyyMMdd") + "/" + Context.BlogUser.Id.ToString();
+            var directoryPath = _host.WebRootPath + relativePath;
             if (!Directory.Exists(directoryPath)){ Directory.CreateDirectory(directoryPath); }
             foreach (var file in uploadfile)
             {
@@ -47,7 +49,7 @@ namespace WhyBlog.WebApi.Controllers
                                 .Parse(file.ContentDisposition)
                                 .FileName
                                 .Trim('"');
-               
+                result.Data.Add(Request.Host + relativePath+$@"/{fileName}");
                 fileName =directoryPath+ $@"/{fileName}";
                 size += file.Length;
                 using (FileStream fs = System.IO.File.Create(fileName))
@@ -55,8 +57,11 @@ namespace WhyBlog.WebApi.Controllers
                     file.CopyTo(fs);
                     fs.Flush();
                 }
+            
             }
-            return "";
+           
+            
+            return result;
         }
 
 
