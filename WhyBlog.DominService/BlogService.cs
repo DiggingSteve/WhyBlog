@@ -49,8 +49,8 @@ namespace WhyBlog.DominService
                     UserPic = p.User.Avatar_url,
                     Id = p.Id
                 }).Skip((pageIndex-1)* pageSize).Take(pageSize);
-            blogResult.PageCount = count / pageSize+1;
-            if (blogResult.PageCount == 0) blogResult.PageCount = 1;
+            blogResult.PageCount = count / pageSize;
+            if (count % pageSize != 0) blogResult.PageCount += 1;
             blogResult.PageIndex = pageIndex;
             return blogResult;
 
