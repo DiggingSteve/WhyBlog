@@ -49,7 +49,8 @@ namespace WhyBlog.WebApi.Controllers
                                 .Parse(file.ContentDisposition)
                                 .FileName
                                 .Trim('"');
-                result.Data.Add(Request.Host + relativePath+$@"/{fileName}");
+            
+                result.Data.Add(Request.Scheme+"://"+Request.Host + relativePath+$@"/{fileName}");
                 fileName =directoryPath+ $@"/{fileName}";
                 size += file.Length;
                 using (FileStream fs = System.IO.File.Create(fileName))

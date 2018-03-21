@@ -127,6 +127,8 @@
                     'undo',  // 撤销
                     'redo'  // 重复
                 ];
+
+                editor.customConfig.debug = true;
                     // editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
                 editor.customConfig.uploadImgServer = config.api_url + "/BlogApi/UploadImg";  // 上传图片到服务器
                 editor.create();
