@@ -26,5 +26,7 @@ namespace WhyBlog.Models.Po
         public int Uid { get; set; }
         [ForeignKey("Uid")]
         public  User User { get; set; }
+
+        public int ReadCount { get; set; }
     }
 }
