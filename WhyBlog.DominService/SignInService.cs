@@ -49,7 +49,7 @@ namespace WhyBlog.DominService
             var identity = new ClaimsIdentity("Forms");
             identity.AddClaim(new Claim(ClaimTypes.Sid, user.Id.ToString()));
             identity.AddClaim(new Claim("Id",userId.ToString()));
-            identity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.Name??""));
             identity.AddClaim(new Claim(AccountSource.LoginSource, AccountSource.Git));
             var principal = new ClaimsPrincipal(identity);
             await _context.HttpContext.SignInAsync("login", principal, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTimeOffset.MaxValue });//
@@ -94,7 +94,9 @@ namespace WhyBlog.DominService
             else
             {
                 _db.Users.Add(user);
-                return _db.SaveChanges();
+                 _db.SaveChanges();
+                existedUser= _db.Users.Where(p => p.Sid == gitUser.Id && p.UserSource == AccountSource.Git).FirstOrDefault();
+                return existedUser.Id;
             }
       
         }
