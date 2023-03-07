@@ -25,6 +25,7 @@ namespace WhyBlog.EF
         {
             if (!string.IsNullOrWhiteSpace(conString))
                 optionsBuilder.UseMySql(conString);
+
             
         }
 

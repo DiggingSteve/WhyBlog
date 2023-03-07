@@ -41,7 +41,6 @@ namespace WhyBlog
             services.AddAutoMapper();
             Mapping.RegisterMappings();
             services.AddDominService();
-
             services.AddMvc().AddJsonOptions(options =>
             {
                 //驼峰式命名，返回js格式 首字母小写

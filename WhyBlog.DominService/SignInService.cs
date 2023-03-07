@@ -61,7 +61,7 @@ namespace WhyBlog.DominService
             postData.Add("code", data.Code);
             postData.Add("client_secret", data.Client_secret);
             postData.Add("client_id", data.Client_id);
-            string token = await HttpUtil.HttpPostAsync("https://github.com/login/oauth/access_token", postData, Encoding.UTF8);
+            string token =  HttpUtil.HttpPost("https://github.com/login/oauth/access_token", postData, Encoding.UTF8);
             string pattern = @"(?<=access_token=)\w*";
             token = Regex.Match(token, pattern).Value;
             string userStr = await HttpUtil.HttpGetAsync("https://api.github.com/user?access_token=" + token, Encoding.UTF8);

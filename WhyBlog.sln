@@ -19,11 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhyBlog.DominService", "Why
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendMethod", "ExtendMethod\ExtendMethod.csproj", "{B7B11BBC-1D86-4735-9F2D-20925D116E21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhyBlog.EF", "WhyBlog.EF\WhyBlog.EF.csproj", "{86E7D6AD-5847-4E8D-9059-FF3CDBDADA8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhyBlog.EF", "WhyBlog.EF\WhyBlog.EF.csproj", "{86E7D6AD-5847-4E8D-9059-FF3CDBDADA8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhyBlog.Models", "WhyBlog.Models\WhyBlog.Models.csproj", "{6F1D1B61-DCE3-41AB-B7E1-278E9646A004}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B904E5A9-90E4-4CF1-AE88-F54D43154A6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhyBlog.Models", "WhyBlog.Models\WhyBlog.Models.csproj", "{6F1D1B61-DCE3-41AB-B7E1-278E9646A004}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +57,6 @@ Global
 		{6F1D1B61-DCE3-41AB-B7E1-278E9646A004}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F1D1B61-DCE3-41AB-B7E1-278E9646A004}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F1D1B61-DCE3-41AB-B7E1-278E9646A004}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B904E5A9-90E4-4CF1-AE88-F54D43154A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B904E5A9-90E4-4CF1-AE88-F54D43154A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B904E5A9-90E4-4CF1-AE88-F54D43154A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B904E5A9-90E4-4CF1-AE88-F54D43154A6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
